@@ -9,15 +9,18 @@
         <link href="css/lib/bootstrap/bootstrap.css" rel="stylesheet" />
         <link href="css/lib/fontawesome/font-awesome.css" rel="stylesheet" />
 
-        <link href="css/lib/jquery/jquery-ui.min.css" rel="stylesheet" />
-        <link href="css/lib/jquery/jquery-ui.theme.min.css" rel="stylesheet" />
         <link href="css/lib/jquery/jquery-ui-1.10.3.custom.css" rel="stylesheet" />
+        <link href="css/lib/jquery/jquery-ui-1.10.3.theme.css" rel="stylesheet" />
 
         <link href="css/app.css" rel="stylesheet" />
     </head>
     <body>
         <div>
             <i class="fa fa-mobile fa-6"></i> Curso Cordova Phonegap
+        </div>
+
+        <div id="main">
+            <div ng-view></div>
         </div>
 
         <script src="cordova.js"></script>
@@ -33,7 +36,9 @@
 
         <script src="scripts/lib/underscore/underscore.min.js"></script>
 
-        <script src="scripts/Utils.js"></script>
+        <script src="scripts/utils.js"></script>
         <script src="scripts/app.js"></script>
+
+        <script src="scripts/routing.js"></script>
     </body>
 </html>

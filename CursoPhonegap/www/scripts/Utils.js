@@ -1,5 +1,5 @@
 ﻿/*!
-* Utils.js v1.0.0
+* utils.js v1.0.0
 *
 * Probado con: jquery v1.11.2
 * Probado con: jquery-ui.js v1.11.2
@@ -7,7 +7,7 @@
 * Autor: Víctor J. Sánchez Rivas
 * Fecha: 2015-07-24
 */
-var Utils = {};
+var utils = {};
 (function (self) {
     "use strict";
 
@@ -894,7 +894,7 @@ var Utils = {};
     };
 
     /*================================================================
-                            ÏNICIO UTILS.JS
+                            ÏNICIO utils.JS
     ==================================================================*/
 
     var init = function () {
@@ -908,4 +908,4 @@ var Utils = {};
 
     load();
 
-})(Utils);
+})(utils);
