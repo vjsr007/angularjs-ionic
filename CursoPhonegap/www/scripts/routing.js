@@ -1,5 +1,4 @@
-﻿// configure our routes
-app.Angular.config(function ($routeProvider) {
+﻿app.Angular.config(function ($routeProvider) {
     $routeProvider
 
         // route for the home page
@@ -18,12 +17,12 @@ app.Angular.config(function ($routeProvider) {
         .when('/contact', {
             templateUrl: 'views/contact.html',
             controller: 'contactController'
-        });
+        })
+
+        .otherwise({ redirectTo: '/' });
 });
 
-// create the controller and inject Angular's $scope
 app.Angular.controller('mainController', function ($scope) {
-    // create a message to display in our view
     $scope.message = 'Everyone come and see how good I look!';
 });
 

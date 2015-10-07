@@ -14,13 +14,24 @@
 
         <link href="css/app.css" rel="stylesheet" />
     </head>
-    <body>
+    <body ng-app="CursoPhonegap">
         <div>
             <i class="fa fa-mobile fa-6"></i> Curso Cordova Phonegap
         </div>
 
-        <div id="main">
-            <div ng-view></div>
+        <div class="container">
+            <div class="row">
+                <nav class="col-md-3">
+                    <ul class="nav">
+                        <li><a href="#/"> Home </a></li>
+                        <li><a href="#about"> Acerca De </a></li>
+                        <li><a href="#contact"> Contacto </a></li>
+                    </ul>
+                </nav>
+                <div class="col-md-9">
+                    <div ng-view></div>
+                </div>
+            </div>
         </div>
 
         <script src="cordova.js"></script>
