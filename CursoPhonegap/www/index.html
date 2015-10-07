@@ -1,25 +1,39 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        <title>Curso Phonegap</title>
 
-    <!--
-        Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
-        For details, see http://go.microsoft.com/fwlink/?LinkID=617521
-    -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-    <title>CursoPhonegap</title>
+        <!-- CursoPhonegap references -->
+        <link href="css/lib/bootstrap/bootstrap.css" rel="stylesheet" />
+        <link href="css/lib/fontawesome/font-awesome.css" rel="stylesheet" />
 
-    <!-- CursoPhonegap references -->
-    <link href="css/index.css" rel="stylesheet" />
-</head>
-<body>
-    <p>Hello, your application is ready!</p>
+        <link href="css/lib/jquery/jquery-ui.min.css" rel="stylesheet" />
+        <link href="css/lib/jquery/jquery-ui.theme.min.css" rel="stylesheet" />
+        <link href="css/lib/jquery/jquery-ui-1.10.3.custom.css" rel="stylesheet" />
 
-    <!-- Cordova reference, this is added to your app when it's built. -->
-    <script src="cordova.js"></script>
-    <script src="scripts/platformOverrides.js"></script>
+        <link href="css/app.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div>
+            <i class="fa fa-mobile fa-6"></i> Curso Cordova Phonegap
+        </div>
 
-    <script src="scripts/index.js"></script>
-</body>
+        <script src="cordova.js"></script>
+        <script src="scripts/platformOverrides.js"></script>
+
+        <script src="scripts/lib/jquery/jquery-2.1.4.min.js"></script>
+        <script src="scripts/lib/jquery/jquery-ui.min.js"></script>
+        <script src="scripts/lib/jquery/jquery.blockUI.js"></script>
+        <script src="scripts/lib/jquery/jquery.ui.shake.js"></script>
+
+        <script src="scripts/lib/angular/angular.min.js"></script>
+        <script src="scripts/lib/angular/angular-route.js"></script>
+
+        <script src="scripts/lib/underscore/underscore.min.js"></script>
+
+        <script src="scripts/Utils.js"></script>
+        <script src="scripts/app.js"></script>
+    </body>
 </html>
