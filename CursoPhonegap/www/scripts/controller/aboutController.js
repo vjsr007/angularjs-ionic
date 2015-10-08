@@ -1,3 +1,3 @@
 ﻿app.Angular.registerCtrl('aboutController', function ($scope) {
-    $scope.message = 'Look! I am an about page.';
+    $scope.message = 'No hay nada que decir.';
 });

@@ -1,3 +1,3 @@
 ﻿app.Angular.registerCtrl('mainController', function ($scope) {
-    $scope.message = 'Everyone come and see how good I look!';
+    $scope.message = 'Bienvenido al Curso de Phonegap Cordova';
 });

@@ -7,6 +7,11 @@
             controller: 'mainController'
         });
 
+        $routeProvider.when('/ubicacion', {
+                templateUrl: 'views/ubicacion.html',
+                controller: 'ubicacionController'
+            });
+
         $routeProvider.when('/about', {
             templateUrl: 'views/about.html',
             controller: 'aboutController'
