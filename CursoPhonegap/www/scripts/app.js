@@ -1,7 +1,7 @@
 ﻿var app = {};
 (function (self) {
     "use strict";
-
+    //Parte II
     self.mensajeSinRegistros = $('<div style="text-align:center;height:20px;padding-top:5px">Sin registros que mostrar</div>');
 
     self.dontBlock = false;
