@@ -1,4 +1,5 @@
-﻿app.Angular.registerCtrl('contactController', function ($scope) {
+﻿//@ sourceURL=contactController.js
+app.Angular.registerCtrl('contactController', function ($scope) {
 
     $scope.message = "";
 
@@ -26,10 +27,18 @@
         var options = new ContactFindOptions();
         options.filter = "";
         options.multiple = true;
-        options.desiredFields = [navigator.contacts.fieldType.id];
+        //options.desiredFields = [navigator.contacts.fieldType.id];
         options.hasPhoneNumber = true;
-        var fields = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
-        navigator.contacts.find(fields, onSuccess, onError, options);
+        //var fields = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
+        var fields = ["*"];
+        navigator.contacts.find(fields, buscarContactosSuccess, app.onError, options);
+    }
+
+    var buscarContactosSuccess = function (contacts) {
+        $scope.contacts = new Array;
+        $.each(contacts, function (i, c) {
+            $scope.contacts.push({ displayName: c.displayName, phoneNumbers: c.phoneNumbers });
+        });
     }
 
     document.addEventListener('deviceready', onDeviceReady, false);

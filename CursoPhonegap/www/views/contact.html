@@ -1,6 +1,13 @@
 ﻿<script src="scripts/controller/contactController.js"></script>
-<div class="text-center">
-    <h1>Contacto</h1>
-
-    <p>{{ message }}</p>
+<div ng-controller="contactController">
+    <div class="text-center">
+        <h1>Contactos</h1>
+        <p>{{ message }}</p>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-success" ng-repeat="c in contacts">
+            <span class="badge">{{c.phoneNumbers}}</span>
+            {{c.displayName}}
+        </li>
+    </ul>
 </div>
