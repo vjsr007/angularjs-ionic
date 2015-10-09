@@ -5,9 +5,14 @@
         <p>{{ message }}</p>
     </div>
     <ul class="list-group">
-        <li class="list-group-item list-group-item-success" ng-repeat="c in contacts">
-            <span class="badge">{{c.phoneNumbers}}</span>
+        <li class="list-group-item list-group-item-info" ng-repeat="c in contacts">
+            <span class="badge">{{c.phoneNumbers.length}}</span>
             {{c.displayName}}
+            <ul ng-show="c.phoneNumbers.length" class="list-group">
+                <li class="list-group-item list-group-item-success" ng-repeat="n in c.phoneNumbers">                    
+                    {{n.value | phoneNumber}}
+                </li>
+            </ul>
         </li>
     </ul>
 </div>

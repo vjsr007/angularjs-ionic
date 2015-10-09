@@ -1,29 +1,37 @@
 ﻿//@ sourceURL=contactController.js
 app.Angular.registerCtrl('contactController', function ($scope) {
+    "use strict";
 
     $scope.message = "";
 
-    var onDeviceReady = function () {
-        init();
+    $scope.onDeviceReady = function () {
+        $scope.init();
     };
 
-    var onPause = function () {
+    $scope.onPause = function () {
 
     };
 
-    var onResume = function () {
+    $scope.onResume = function () {
+
     };
 
-    var init = function () {
-        $scope.message = 'Lista de Contactos.';
+    $scope.aplicarBusqueda = function (contacts) {
+        $scope.$apply(function () {
+            $scope.contacts = new Array;
+            $.each(contacts, function (i, c) {
+                $scope.contacts.push({ displayName: c.displayName, phoneNumbers: c.phoneNumbers });
+            });
+        });
+    };
 
-        document.addEventListener('pause', onPause, false);
-        document.addEventListener('resume', onResume, false);
+    $scope.buscarContactosSuccess = function (contacts) {
+        $scope.aplicarBusqueda(contacts);
 
-        buscarContactos();
-    }
+        app.contacts = contacts;
+    };
 
-    function buscarContactos() {
+    $scope.buscarContactos = function () {
         var options = new ContactFindOptions();
         options.filter = "";
         options.multiple = true;
@@ -31,15 +39,19 @@ app.Angular.registerCtrl('contactController', function ($scope) {
         options.hasPhoneNumber = true;
         //var fields = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
         var fields = ["*"];
-        navigator.contacts.find(fields, buscarContactosSuccess, app.onError, options);
-    }
+        navigator.contacts.find(fields, $scope.buscarContactosSuccess, app.onError, options);
+    };
 
-    var buscarContactosSuccess = function (contacts) {
+    $scope.init = function () {
+        $scope.message = 'Lista de Contactos.';
+
         $scope.contacts = new Array;
-        $.each(contacts, function (i, c) {
-            $scope.contacts.push({ displayName: c.displayName, phoneNumbers: c.phoneNumbers });
-        });
-    }
 
-    document.addEventListener('deviceready', onDeviceReady, false);
+        document.addEventListener('pause', $scope.onPause, false);
+        document.addEventListener('resume', $scope.onResume, false);
+
+        $scope.buscarContactos();
+    };
+
+    document.addEventListener('deviceready', $scope.onDeviceReady, false);
 });
