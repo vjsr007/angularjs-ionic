@@ -106,4 +106,5 @@
   </platform>
   <vs:plugin name="cordova-plugin-geolocation" version="1.0.1" />
   <vs:plugin name="cordova-plugin-device" version="1.0.1" />
+  <vs:plugin name="cordova-plugin-contacts" version="" />
 </widget>

@@ -1,27 +1,27 @@
 ﻿app.Angular.registerCtrl('mainController', function ($scope) {
     $scope.message = "";
 
-    //document.addEventListener("deviceready", onDeviceReady, false);
+    var onDeviceReady = function () {
+        init();
+    };
 
-    //var onDeviceReady = function () {
-    //    init();
-    //};
+    var onPause = function () {
 
-    //var onPause = function () {
+    };
 
-    //};
+    var onResume = function () {
 
-    //var onResume = function () {
+    };
 
-    //};
+    var init = function () {
+        var deviceID = device.uuid;
 
-    //var init = function () {
-    //    var deviceID = device.uuid;
+        $scope.message = 'Bienvenido al Curso de Phonegap Cordova\n UUID: ' + deviceID;
 
-    //    $scope.message = 'Bienvenido al Curso de Phonegap Cordova\nUUID: ' + deviceID;
+        document.addEventListener('pause', onPause, false);
+        document.addEventListener('resume', onResume, false);
+    }
 
-    //    document.addEventListener('pause', onPause, false);
-    //    document.addEventListener('resume', onResume, false);
-    //}
+    document.addEventListener("deviceready", onDeviceReady, false);
 
 });
