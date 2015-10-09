@@ -17,18 +17,21 @@ app.Angular.registerCtrl('contactController', function ($scope) {
     };
 
     $scope.aplicarBusqueda = function (contacts) {
-        $scope.$apply(function () {
-            $scope.contacts = new Array;
-            $.each(contacts, function (i, c) {
-                $scope.contacts.push({ displayName: c.displayName, phoneNumbers: c.phoneNumbers });
-            });
+        $scope.contacts = new Array;
+        $.each(contacts, function (i, c) {
+            $scope.contacts.push({ displayName: c.displayName, phoneNumbers: c.phoneNumbers });
         });
     };
 
     $scope.buscarContactosSuccess = function (contacts) {
-        $scope.aplicarBusqueda(contacts);
-
-        app.contacts = contacts;
+        if (app.emulated) {
+            $scope.aplicarBusqueda(contacts);
+        }
+        else {
+            $scope.$apply(function () {
+                $scope.aplicarBusqueda(contacts);
+            });
+        }
     };
 
     $scope.buscarContactos = function () {

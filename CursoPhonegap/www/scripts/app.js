@@ -6,6 +6,8 @@
 
     self.dontBlock = false;
 
+    self.emulated = window.parent && window.parent.ripple;
+
     var init = function () {
         ///<summary>Ejecución al realizar $.ready()</summary>
         utils.mostrarMensaje("Curso Phonegap", "Happy Coding!")
@@ -66,7 +68,7 @@
         window.onerror = function (e) {
             utils.mostrarMensaje("Error de Aplicación", e.message);;
         };
-    }
+    };
 
     var load = function () {
         handledError();
@@ -79,11 +81,12 @@
         configAjax();
 
         initAngular();
-    }
+    };
 
     var onError = function () {
 
-    }
+    };
+
 
     load();
 
