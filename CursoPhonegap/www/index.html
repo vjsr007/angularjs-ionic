@@ -13,12 +13,18 @@
     </head>
     <body ng-app="CursoPhonegap">
         <!--Header-->
-        <div class="bar bar-header bar-positive">
+        <!--<div class="bar bar-header bar-positive">
             <button ng-click="toggleLeft()" class="button icon ion-navicon"></button>
             <h1 class="title"><i class="fa fa-mobile fa-2x"></i> Curso Phonegap</h1>
-        </div>
+        </div>-->
+        <ion-header-bar align-title="left" class="bar-positive">
+            <div class="buttons">
+                <button class="button icon ion-navicon" ng-click="toggleLeft()" ></button>
+            </div>
+            <h1 class="title">Phonegap</h1>
+        </ion-header-bar>
         <!--Content-->
-        <ion-content>
+        <ion-content class="map-container">
             <div ng-view></div>
         </ion-content>
         <!--Footer-->

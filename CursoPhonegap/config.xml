@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="io.cordova.myapp27550c" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US">
-  <name>CursoPhonegap</name>
-  <description>A blank project that uses Apache Cordova to help you build an app that targets multiple mobile platforms: Android, iOS, Windows, and Windows Phone.</description>
-  <author href="http://cordova.io" email="dev@cordova.apache.org">Apache Cordova Team </author>
+<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="com.appliedsw.cursophonegap" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US">
+  <name>Curso Phonegap</name>
+  <description>App para el curso de Phonegap</description>
+  <author href="http://cordova.io" email="dev@cordova.apache.org">Víctor J. Sánchez Rivas</author>
   <content src="index.html" />
   <access origin="*" />
   <vs:features />
@@ -109,4 +109,10 @@
   <vs:plugin name="cordova-plugin-contacts" version="" />
   <vs:plugin name="cordova-plugin-battery-status" version="1.1.0" />
   <vs:plugin name="cordova-plugin-camera" version="1.2.0" />
+  <vs:plugin name="cordova-plugin-device-motion" version="1.1.1" />
+  <vs:plugin name="cordova-plugin-device-orientation" version="1.0.1" />
+  <vs:plugin name="cordova-plugin-console" version="1.0.1" />
+  <vs:plugin name="cordova-plugin-media-capture" version="1.0.1" />
+  <vs:plugin name="cordova-plugin-splashscreen" version="2.1.0" />
+  <preference name="Fullscreen" value="True" />
 </widget>
