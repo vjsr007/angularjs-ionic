@@ -56,5 +56,17 @@ app.Angular.registerCtrl('contactController', function ($scope) {
         $scope.buscarContactos();
     };
 
-    document.addEventListener('deviceready', $scope.onDeviceReady, false);
+     $scope.shouldShowDelete = false;
+     $scope.shouldShowReorder = false;
+     $scope.listCanSwipe = true
+
+     $scope.callContact = function() {
+         navigator.contacts.pickContact(function (contact) {
+             console.log('The following contact has been selected:' + JSON.stringify(contact));
+         }, function (err) {
+             console.log('Error: ' + err);
+         });
+     }
+
+     document.addEventListener('deviceready', $scope.onDeviceReady, false);
 });

@@ -1,222 +1,63 @@
 ﻿/*!
 * utils.js v1.0.0
 *
-* Probado con: jquery v1.11.2
-* Probado con: jquery-ui.js v1.11.2
 *
 * Autor: Víctor J. Sánchez Rivas
-* Fecha: 2015-07-24
+* Fecha: 2015-10-09
 */
 var utils = {};
 
 (function (self) {
     "use strict";
 
-    self.hackValidation = function ($form) {
-        $form.unbind();
-        $form.data("validator", null);
-        $.validator.unobtrusive.parse(document);
-        $form.validate($form.data("unobtrusiveValidation").options);
-    }
+    /*================================================================
+                            IONIC
+    ==================================================================*/
+    self.mostrarConfirmar = function (params) {
+        params.$scope.data = {}
 
-    self.mostrarConfirmar = function (titulo, mensaje, observaciones, options, callBack) {
-        ///<summary>Muestra dialog con opciones de Aceptar o Cancelar, al Aceptar realiza callBack y al Cancelar cierra ventana</summary> 
-        /// <param name="titulo" type="String">Titulo de la ventana modal</param>
-        /// <param name="mensaje" type="String">Mensaje en la ventana modal</param>
-        /// <param name="observaciones" type="String">ID tag con el que se mostrara textarea en la venta modal, para captura de texto</param>
-        /// <param name="options" type="Object">Mensaje en la ventana modal ej. {modal: modal, autoOpen: autoOpen, resizable: resizable, width: width, height: height}</param>
-        /// <param name="callBack" type="Function">Funcion a ejecutar despues cerrar ventana modal</param>
-        if (mensaje == null) mensaje = "Descripción del Mensaje";
-        if (titulo == null) titulo = "Mensaje";
-        if (observaciones == null) observaciones = "";
-        if (options == null) options = new Object;
-        if (callBack == null) callBack = function () { return false; }
+        // An elaborate, custom popup
+        var myPopup = params.$ionicPopup.show({
+            template: params.template,
+            title: params.title,
+            subTitle: params.subTitle,
+            scope: params.$scope,
+            buttons: [
+              { text: 'Cancelar' },
+              {
+                  text: '<b>Aceptar</b>',
+                  type: 'button-positive',
+                  onTap: function (e) {
+                      e.preventDefault();
 
-        var width = options.width != null ? options.width : 380;
-        var height = options.height != null ? options.height : 180;
-        var autoOpen = options.autoOpen != null ? options.autoOpen : true;
-        var resizable = options.resizable != null ? options.resizable : false;
-        var modal = options.modal != null ? options.modal : true;
-        var maxLenObs = options.maxLenObs != null ? options.maxLenObs : 10;
-
-        var txtObs = "";
-        if (observaciones.length > 0) {
-            txtObs = '<br><textarea onchange="testLength(this,' + maxLenObs + ')" onkeyup="testLength(this,' + maxLenObs + ')" onpaste="testLength(this,' + maxLenObs + ')" cols="' + maxLenObs + '" maxlength="' + maxLenObs + '" style="resize: none;width:99%; margin:0;" id="' + observaciones + '"></textarea>';
-        }
-
-        var dialog = $("<div><div id='lblMsgConfirmar' >" + mensaje + "</div>" + txtObs + "</div>").dialog({
-            modal: true,
-            autoOpen: autoOpen,
-            resizable: resizable,
-            width: width,
-            height: height,
-            title: titulo,
-            open: function (event, ui) {
-                var dz = $(".ui-dialog:last").css("z-index");
-                $(".ui-widget-overlay:last").insertBefore(".ui-dialog:last");
-                $(".ui-widget-overlay:last").css({ "z-index": dz - 1 });
-            },
-            close: function (event, ui) {
-                $(this).remove();
-            },
-            buttons: {
-                Cerrar: function () {
-                        $(this).dialog("close");
-                    },
-                Aceptar: function () {
-                    callBack(dialog);
-                    $(this).dialog("close");
-                }
-            }
+                      if (params.callBack) params.callBack(params.$scope);
+                  }
+              }
+            ]
         });
-
-        return dialog;
-    }
-
-    self.mostrarMensaje = function (titulo, mensaje, options, callBack) {
-        ///<summary>Muestra dialog con mensaje</summary> 
-        /// <param name="titulo" type="String">Titulo de la ventana modal</param>
-        /// <param name="mensaje" type="String">Mensaje en la ventana modal</param>
-        /// <param name="options" type="Object">Mensaje en la ventana modal ej. {modal: modal, autoOpen: autoOpen, resizable: resizable, width: width, height: height}</param>
-        /// <param name="callBack" type="Function">Funcion a ejecutar despues cerrar ventana modal</param>
-        if (mensaje == null) mensaje = "";
-        if (titulo == null) titulo = "Sistema UDIS";
-
-        if (options == null) options = new Object;
-        if (callBack == null) callBack = function () { return false; }
-
-        var width = options.width != null ? options.width : 'auto';
-        var height = options.height != null ? options.height : 'auto';
-        var autoOpen = options.autoOpen != null ? options.autoOpen : true;
-        var resizable = options.resizable != null ? options.resizable : true;
-        var modal = options.modal != null ? options.modal : true;
-
-        var dialog = $("<div><div id='lblMensaje' ></div></div>").dialog({
-            modal: modal,
-            autoOpen: autoOpen,
-            resizable: resizable,
-            width: width,
-            height: height,
-            minHeight: '180',
-            minWidth: '380',
-            maxHeight: '90%',
-            maxWidth: '90%',
-            title: titulo,
-            close: function (event, ui) {
-                $(this).dialog("close");
-                if (callBack != null) callBack(dialog);
-                $(this).remove();
-            },
-            buttons: {
-                Cerrar: function () {
-                    $(this).dialog("close");
-                }
-            }
+        myPopup.then(function (res) {
+            console.log('Click Aceptar', res);
         });
-
-        $("#lblMensaje").html(mensaje);
-
-        return dialog;
-    }
-
-    self.mostrarModal =  function(titulo, url, data, options, callBack) {
-        //<summary>Carga una ventana modal con el Html Content recibido</summary>
-        /// <param name="titulo" type="String">Titulo de la ventana modal</param>
-        /// <param name="url" type="String">URL de Vista parcial</param>
-        /// <param name="data" type="String">parametros de la vista parcial</param>
-        /// <param name="options" type="Object">Mensaje en la ventana modal ej. {modal: modal, autoOpen: autoOpen, resizable: resizable, width: width, height: height}</param>
-        /// <param name="callBack" type="Function">Funcion a ejecutar despues cerrar ventana modal</param>
-        if (titulo == null) titulo = "Intranet";
-
-        if (options == null) options = new Object;
-        if (options.buttons == null) options.buttons =
-        {
-            Cerrar: function () {
-                $(this).dialog("close");
-                $(this).hide();
-            }
-        };
-
-        var width = options.width != null ? options.width : 'auto';
-        var height = options.height != null ? options.height : 'auto';
-        var autoOpen = options.autoOpen != null ? options.autoOpen : true;
-        var resizable = options.resizable != null ? options.resizable : true;
-        var modal = options.modal != null ? options.modal : true;
-        var minHeight = options.minHeight != null ? options.minHeight : '180';//: '180',
-        var minWidth = options.minWidth != null ? options.minWidth : '380';//: '380',
-        var maxHeight = options.maxHeight != null ? options.maxHeight : '90%';//: '90%',
-        var maxWidth = options.maxWidth != null ? options.maxWidth : '90%';//: '90%',
-        var beforeClose;
-        if (options.beforeClose == null) {
-            beforeClose =
-            function (event, ui) {
-
-            };
-        }
-        else {
-            beforeClose = options.beforeClose;
-        }
-
-        var $htmlDialog = $("<div></div>");
-        $htmlDialog.load(url, data, function () {
-
-            var dialog = $htmlDialog.dialog({
-                modal: modal,
-                autoOpen: autoOpen,
-                resizable: resizable,
-                width: width,
-                height: height,
-                minHeight: minHeight,
-                minWidth: minWidth,
-                maxHeight: maxHeight,
-                maxWidth: maxWidth,
-                title: titulo,
-                open: function (event, ui) {
-                    $(this).css('overflow', 'hidden');
-                },
-                close: function (event, ui) {
-                    dialog.remove();
-                },
-                beforeClose: beforeClose,
-                buttons: options.buttons
-            });
-
-            if (callBack != null) {
-                callBack(dialog);
-            }
-
-            return dialog;
-        });
-    };
-
-    self.ejecutarAjax = function (post, url, callBack) {
-        /// <summary>Ejecuta AJAX y espera resultado en JSON desde la URL definida, y realiza el callBack al terminar.</summary>
-        /// <param name="post" type="Object">Filtros del post j. {f: {nombre: "x", pass: "y"}}</param>
-        /// <param name="url" type="String">URL a ejecutar</param>
-        /// <param name="callBack" type="Function">Funcion a ejecutar despues de terminar AJAX</param>
-        /// <returns type="void"></returns>
-        try {
-            var request = $.ajax({
-                url: url,
-                dataType: "json",
-                data: JSON.stringify(post),
-                contentType: "application/json",
-                async: true,
-                type: "post"
-            });
-
-            request.done(function (data) {
-                if (callBack != null) callBack(data);
-            });
-
-            request.fail(function (jqXhr, textStatus) {
-                self.mostrarMensaje("Error request: " + url, textStatus);
-            });
-        } catch (e) {
-            mostrarMensaje("Error de sintaxis", e.message);
+        if (params.$timeout) {
+            params.$timeout(function () {
+                myPopup.close();
+            }, 3000);
         }
     };
 
+    self.mostrarMensaje = function (params) {
+        var alertPopup = params.$ionicPopup.alert({
+            title: params.title,
+            template: params.template
+        });
+        alertPopup.then(function (res) {
+            if (params.callBack) params.callBack(params.$scope);
+        });
+    };
+
+    /*================================================================
+                            GENERAL
+    ==================================================================*/
     self.url2json = function (url, complete) {
         /// <summary>Convierte una URL string a JSON.</summary>
         /// <param name="url" type="String">URL a serializar</param>
@@ -341,63 +182,6 @@ var utils = {};
         return dateFormat(date, Formato);
     }
 
-    self.fillSelect = function ($select, collection, id, name, emptyOption) {
-        /// <summary>Llena select a partir de una colección.</summary>
-        /// <param name="$select" type="JQuery select">html select a llenar.</param>
-        /// <param name="collection" type="Object">Colección para llenar html select</param>
-        /// <param name="id" type="Property">Propiedad para atributo value de option</param>
-        /// <param name="name" type="Property">Propiedad para html de option</param>
-        /// <param name="emptyOption" type="String">Texto de option vacio</param>
-        try {
-            var sHtml = '';
-            var ID = '';
-            if (emptyOption) sHtml = '<option value="">' + emptyOption.toString() + '</option>';
-            $.each(collection, function (i, obj) {
-
-                if (obj.AgenteID != undefined)
-                    ID = obj.AgenteID;
-                else if (obj.MonedaID != undefined)
-                    ID = obj.MonedaID;
-                else ID = obj.ID;
-
-                sHtml += '<option value="' + $.trim(ID) + '">' + obj.Descripcion + '</option>';
-            });
-            $ddl.html(sHtml);
-        }
-        catch (e) {
-            alert("Error fillSelect: " + e.message)
-        }
-    };
-
-    self.cascadingSelect = function ($parent, $child, collection, id, name, idParent, emptyOption) {
-        /// <summary>Crea selects en cascada.</summary>
-        /// <param name="$parent" type="JQuery select">html select padre.</param>
-        /// <param name="$child" type="JQuery select">html select hijo.</param>
-        /// <param name="collection" type="Object">Colección para llenar html select</param>
-        /// <param name="id" type="Property">Propiedad para atributo value de option</param>
-        /// <param name="name" type="Property">Propiedad para html de option</param>
-        /// <param name="idParent" type="Property">Propiedad relación padre-hijo</param>
-        /// <param name="emptyOption" type="String">Texto de option vacio</param>
-        try {
-            $parent.change(function () {
-                var sHtml = '';
-                if (emptyOption) sHtml = '<option value="">' + emptyOption + '</option>';
-                var parent = $(this).val();
-                if ($(this).val() != "") {
-                    $.each(collectionParent, function (i, obj) {
-                        if (parent == obj[idParent].toString())
-                            sHtml += '<option value="' + $.trim(obj[id]) + '">' + obj[name] + '</option>';
-                    });
-                }
-                $child.html(sHtml);
-                $child.change();
-            });
-        }
-        catch (e) {
-            alert("Error cascadingSelect: " + e.message)
-        }
-    };
-
     self.isDate = function (txtDate) {
         /// <summary>Valida si un texto es fecha.</summary>
         /// <param name="txtDate" type="String">Fecha en texto.</param>
@@ -429,21 +213,6 @@ var utils = {};
                 return false;
         }
         return true;
-    }
-
-    self.centerDialogGrid = function (grid) {
-        /// <summary>Centrar Dialog de JQGrid.</summary>
-        /// <param name="grid" type="JQGrid">JQGrid.</param>
-        var dlgDiv = $("#editmod" + grid[0].id);
-        var parentDiv = dlgDiv.parent(); // div#gbox_list
-        var dlgWidth = dlgDiv.width();
-        var parentWidth = parentDiv.width();
-        var dlgHeight = dlgDiv.height();
-        var parentHeight = parentDiv.height();
-        // TODO: change parentWidth and parentHeight in case of the grid
-        //       is larger as the browser window
-        //dlgDiv[0].style.top = Math.round((parentHeight - dlgHeight) / 2) + "px";
-        dlgDiv[0].style.left = Math.round((parentWidth - dlgWidth) / 1.2) + "px";
     }
 
     self.validMoney = function (e, Text) {
@@ -484,66 +253,6 @@ var utils = {};
         else {
             return false;
         }
-    }
-
-    self.cargarSSRS = function (Url, Params) {
-        /// <summary>Validar tipo entero de un texto.</summary>
-        /// <param name="Url" type="String">URL del Reporting Service</param>
-        /// <param name="Params" type="Params">Paranetros del Reporting</param>
-        $('body').append('<form style="display:none;" id="frmSRRSS"></form>');
-        var $form = $("#frmSRRSS");
-
-        $form.append('<div id="dialogSRRS" style="width: 1150px; height:500px;" ><iframe id="iSRSS" name="iSRSS" scrolling="auto" frameborder="0" width="100%" height="100%""/></div>');
-        var $iframe = $("#iSRSS");
-        var $dialog = $("#frmVista");
-
-        $("#dialogSRRS").dialog({
-            autoOpen: false,
-            title: "Vista Previa",
-            width: 1150,
-            height: 500,
-            modal: true,
-            resizable: false,
-            close: function (event, ui) {
-                $(this).dialog('close');
-                $("#frmSRRSS").remove();
-            },
-            buttons: {
-                "Cerrar": function () {
-                    $(this).dialog('close');
-                }
-            },
-            open: function (event, ui) {
-                var dz = $(".ui-dialog:last").css("z-index");
-                $(".ui-widget-overlay:last").insertBefore(".ui-dialog:last");
-                $(".ui-widget-overlay:last").css({ "z-index": dz - 1 });
-            }
-        });
-
-        $iframe.load(function () {
-            $.unblockUI();
-            try { $("#dialogSRRS").dialog('open') } catch (e) { };
-        });
-
-        $form.attr("target", "iSRSS");
-        $form.attr("action", Url);
-        $form.attr("method", "post");
-
-        $form.append('<input name="rs:ParameterLanguage" value="" />');
-        $form.append('<input name="rc:Parameters" value="False" />');
-        $form.append('<input name="rs:ClearSession" value="true" />');
-
-        var listParams = GetHeaders(Params);
-
-        $.each(listParams, function (idx, p) {
-            $form.append('<input name="' + p + '" id="' + p + '" />');
-            $('#' + p).val(Params[p]);
-        });
-
-        $form.append("method", "post");
-
-
-        $form.submit();
     }
 
     self.keydownHandler = function(e) {
@@ -893,20 +602,5 @@ var utils = {};
 
         return controls
     };
-
-    /*================================================================
-                            ÏNICIO utils.JS
-    ==================================================================*/
-
-    var init = function () {
-        ///<summary>Ejecución al realizar $.ready()</summary>
-    };
-
-    var load = function () {
-        //<summary>Cargar al momento</summary>
-        $(init);
-    }
-
-    load();
 
 })(utils);

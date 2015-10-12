@@ -22,6 +22,11 @@
             controller: 'contactController'
         });
 
+        $routeProvider.when('/camara', {
+            templateUrl: 'views/camara.html',
+            controller: 'camaraController'
+        });
+
         $routeProvider.otherwise({ redirectTo: '/' });
     }
 ]);

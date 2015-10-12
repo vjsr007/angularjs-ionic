@@ -6,75 +6,56 @@
         <title>Curso Phonegap</title>
 
         <!-- CursoPhonegap references -->
-        <link href="css/lib/bootstrap/bootstrap.css" rel="stylesheet" />
+        <link href="css/lib/ionic/ionic.css" rel="stylesheet" />
         <link href="css/lib/fontawesome/font-awesome.css" rel="stylesheet" />
-
-        <link href="css/lib/jquery/jquery-ui-1.10.3.custom.css" rel="stylesheet" />
-        <link href="css/lib/jquery/jquery-ui-1.10.3.theme.css" rel="stylesheet" />
 
         <link href="css/app.css" rel="stylesheet" />
     </head>
     <body ng-app="CursoPhonegap">
-
-        <div id="wrapper">
-
-            <!-- Navegación -->
-            <nav class="navbar navbar-default navbar-static-top primary" role="navigation" style="margin-bottom: 0">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Cambiar Navegación</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="@Url.Content(" ~/")"><i class="fa fa-mobile fa-2x"></i> Curso Phonegap</a>
-                </div>
-                <!-- navigation top -->
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                            <a href="#/" role="button"> Home
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#contact" role="button">
-                                Contacto
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#about" role="button">
-                                Acerca De
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#ubicacion" role="button">
-                                Mi Ubicación
-                            </a>
-                        </li>
-                    </ul>
-                </div> 
-            </nav>
-
-            <div id="page-wrapper">
-                <div style="height: 5px;"></div>
-                <div ng-view></div>
-            </div>
-            <!-- /#page-wrapper -->
-
+        <!--Header-->
+        <div class="bar bar-header bar-positive">
+            <button ng-click="toggleLeft()" class="button icon ion-navicon"></button>
+            <h1 class="title"><i class="fa fa-mobile fa-2x"></i> Curso Phonegap</h1>
         </div>
+        <!--Content-->
+        <ion-content>
+            <div ng-view></div>
+        </ion-content>
+        <!--Footer-->
+        <ion-footer-bar align-title="left">
+            <div class="tabs">
+                <a class="tab-item" href="#/">
+                    <i class="icon ion-home"></i>
+                    Home
+                </a>
+                <a class="tab-item" href="#contact">
+                    <i class="icon ion-person-stalker"></i>
+                    Contactos
+                </a>
+                <a class="tab-item" href="#ubicacion">
+                    <i class="icon ion-location"></i>
+                    Ubicación
+                </a>
+                <a class="tab-item" href="#camara">
+                    <i class="icon ion-camera"></i>
+                    Camara
+                </a>
+                <a class="tab-item" href="#about">
+                    <i class="icon ion-information-circled"></i>
+                    Ubicación
+                </a>
+            </div>
+        </ion-footer-bar>
 
         <script src="cordova.js"></script>
         <script src="scripts/platformOverrides.js"></script>
 
         <script src="scripts/lib/jquery/jquery-2.1.4.min.js"></script>
-        <script src="scripts/lib/jquery/jquery-ui.min.js"></script>
-        <script src="scripts/lib/jquery/jquery.blockUI.js"></script>
-        <script src="scripts/lib/jquery/jquery.ui.shake.js"></script>
 
         <script src="scripts/lib/angular/angular.min.js"></script>
         <script src="scripts/lib/angular/angular-route.js"></script>
 
-        <script src="scripts/lib/bootstrap/bootstrap.js"></script>
+        <script src="scripts/lib/ionic/ionic.bundle.min.js"></script>
 
         <script src="scripts/lib/underscore/underscore.min.js"></script>
 
@@ -84,5 +65,5 @@
         <script src="scripts/routing.js"></script>
 
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=weather"></script>
-    </body>
+</body>
 </html>

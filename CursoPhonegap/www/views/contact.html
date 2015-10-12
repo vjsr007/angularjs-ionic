@@ -4,15 +4,12 @@
         <h1>Contactos</h1>
         <p>{{ message }}</p>
     </div>
-    <ul class="list-group">
-        <li class="list-group-item list-group-item-info" ng-repeat="c in contacts">
-            <span class="badge">{{c.phoneNumbers.length}}</span>
+    <div class="list">
+        <div class="item item-button-right" ng-repeat="c in contacts">
             {{c.displayName}}
-            <ul ng-show="c.phoneNumbers.length" class="list-group">
-                <li class="list-group-item list-group-item-success" ng-repeat="n in c.phoneNumbers">                    
-                    {{n.value}}
-                </li>
-            </ul>
-        </li>
-    </ul>
+            <button class="button button-positive" ng-click="callContact()">
+                <i class="icon ion-ios-telephone"></i>
+            </button>
+        </div>
+    </div>
 </div>

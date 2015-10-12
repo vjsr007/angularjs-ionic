@@ -1,4 +1,5 @@
-﻿app.Angular.registerCtrl('ubicacionController', function ($scope) {
+﻿//@ sourceURL=ubicacionController.js
+app.Angular.registerCtrl('ubicacionController', function ($scope) {
     $scope.message = 'Arrastra el icono a tu destino';
 
     var directionsDisplay;

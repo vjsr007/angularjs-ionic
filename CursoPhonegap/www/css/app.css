@@ -5,3 +5,13 @@
     font-size: 18px;
     line-height: 20px;
 }
+.map-container .scroll {
+  height: 100%;
+}
+.angular-google-map-container {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
