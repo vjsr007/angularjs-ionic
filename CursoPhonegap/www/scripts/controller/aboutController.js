@@ -5,7 +5,9 @@ app.Angular.registerCtrl('aboutController', function ($scope, $ionicSlideBoxDele
     $scope.Compass;
 
     function onSuccess(acceleration) {
-        $scope.Acceleration = acceleration;
+        $scope.$apply(function () {
+            $scope.Acceleration = acceleration;
+        });        
     };
 
     function onError() {
@@ -13,7 +15,9 @@ app.Angular.registerCtrl('aboutController', function ($scope, $ionicSlideBoxDele
     };
 
     function onSuccessCompass(heading) {
-        $scope.Compass = heading;
+        $scope.$apply(function () {
+            $scope.Compass = heading;
+        });        
     };
 
     function onDeviceReady() {
