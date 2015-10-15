@@ -10,49 +10,6 @@
         <link href="css/lib/fontawesome/font-awesome.css" rel="stylesheet" />
 
         <link href="css/app.css" rel="stylesheet" />
-    </head>
-    <body ng-app="CursoPhonegap">
-        <!--Header-->
-        <div class="bar bar-header bar-positive">
-            <button ng-click="toggleLeft()" class="button icon ion-navicon"></button>
-            <h1 class="title"><i class="fa fa-mobile fa-2x"></i> Curso Phonegap</h1>
-        </div>        
-        <!--<ion-header-bar align-title="left" class="bar-positive">
-            <div class="buttons">
-                <button id="" class="button icon ion-navicon" ng-click="toggleLeft()" ></button>
-            </div>
-            <h1 class="title">Phonegap</h1>
-        </ion-header-bar>-->
-        <!--Content-->
-        <ion-content class="map-container">
-            <div style="height:50px;"></div>
-            <div ng-view></div>
-        </ion-content>
-        <!--Footer-->
-        <ion-footer-bar align-title="left">
-            <div class="tabs">
-                <a class="tab-item" href="#/">
-                    <i class="icon ion-home"></i>
-                    Home
-                </a>
-                <a class="tab-item" href="#contact">
-                    <i class="icon ion-person-stalker"></i>
-                    Contactos
-                </a>
-                <a class="tab-item" href="#ubicacion">
-                    <i class="icon ion-location"></i>
-                    Ubicación
-                </a>
-                <a class="tab-item" href="#camara">
-                    <i class="icon ion-camera"></i>
-                    Camara
-                </a>
-                <a class="tab-item" href="#about">
-                    <i class="icon ion-information-circled"></i>
-                    Ubicación
-                </a>
-            </div>
-        </ion-footer-bar>
 
         <script src="cordova.js"></script>
         <script src="scripts/platformOverrides.js"></script>
@@ -72,5 +29,69 @@
         <script src="scripts/routing.js"></script>
 
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=weather"></script>
+    </head>
+    <body ng-app="CursoPhonegap">
+        <ion-side-menus>
+            <ion-side-menu side="left">
+                <ion-list>
+                    <ion-item href="#/">
+                        <i class="icon ion-home"></i>
+                        Home
+                    </ion-item>
+                    <ion-item href="#contact">
+                        <i class="icon ion-person-stalker"></i>
+                        Contactos
+                    </ion-item>
+                    <ion-item href="#ubicacion">
+                        <i class="icon ion-location"></i>
+                        Ubicación
+                    </ion-item>
+                    <ion-item href="#camara">
+                        <i class="icon ion-camera"></i>
+                        Camara
+                    </ion-item>
+                    <ion-item href="#about">
+                        <i class="icon ion-information-circled"></i>
+                        Brujula
+                    </ion-item>
+            </ion-list>
+            </ion-side-menu>
+            <ion-side-menu-content>
+                <!--Header-->
+                <ion-header-bar id="header" align-title="left" class="bar-positive" ng-controller="appController">
+                    <button ng-click="toggleLeft()" class="button icon ion-navicon"></button>
+                    <h1 class="title"><i class="fa fa-mobile fa-2x"></i> Curso Phonegap</h1>
+                </ion-header-bar>
+                <!--Content-->
+                <ion-content class="map-container view-animate-container">
+                    <div ng-view class="view-animate"></div>
+                </ion-content>
+                <!--Footer-->
+                <ion-footer-bar align-title="left">
+                    <div class="tabs">
+                        <a class="tab-item" href="#/">
+                            <i class="icon ion-home"></i>
+                            Home
+                        </a>
+                        <a class="tab-item" href="#contact">
+                            <i class="icon ion-person-stalker"></i>
+                            Contactos
+                        </a>
+                        <a class="tab-item" href="#ubicacion">
+                            <i class="icon ion-location"></i>
+                            Ubicación
+                        </a>
+                        <a class="tab-item" href="#camara">
+                            <i class="icon ion-camera"></i>
+                            Camara
+                        </a>
+                        <a class="tab-item" href="#about">
+                            <i class="icon ion-information-circled"></i>
+                            Brujula
+                        </a>
+                    </div>
+                </ion-footer-bar>
+            </ion-side-menu-content>
+        </ion-side-menus>
     </body>
 </html>

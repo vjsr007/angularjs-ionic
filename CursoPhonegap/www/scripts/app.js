@@ -10,7 +10,14 @@
 
     var initAngular = function () {
         self.Angular = angular
-            .module("CursoPhonegap", ['ngRoute', 'ionic']);
+            .module("CursoPhonegap", ['ngRoute', 'ionic','ngAnimate'])
+            .controller('appController', function ($scope, $ionicSideMenuDelegate) {
+
+                $scope.toggleLeft = function () {
+                    $ionicSideMenuDelegate.toggleLeft();
+                };
+
+            });
     }
 
     var handledError = function () {
