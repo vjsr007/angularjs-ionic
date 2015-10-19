@@ -91,10 +91,25 @@ app.Angular.registerCtrl('ubicacionController', function ($scope) {
         directionsDisplay.setOptions({ suppressMarkers: true });
     }
 
+    function onSuccessCompass(heading) {
+        $scope.$apply(function () {
+            $scope.Compass = heading;
+
+            if (map) {
+                map.setHeading($scope.Compass.magneticHeading);
+            }
+
+        });
+    };
+
     document.addEventListener("deviceready", onDeviceReady, false); 
              
     function onDeviceReady() { 
-        navigator.geolocation.getCurrentPosition(onSuccess, onError); 
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+
+        var options = { frequency: 1000 };  // Update every 3 seconds
+
+        var watchCompassID = navigator.compass.watchHeading(onSuccessCompass, onError, options);
     } 
              
     function onSuccess(position) { 

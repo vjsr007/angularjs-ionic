@@ -5,9 +5,12 @@
         <p>{{ message }}</p>
     </div>
     <div class="list">
-        <div class="item item-button-right" ng-repeat="c in contacts">
-            {{c.displayName}}
-            <button class="button button-positive" ng-click="callContact()">
+        <div ng-show="c.phoneNumbers.length" class="item item-button-right" ng-repeat="c in contacts">
+            <h2>{{c.displayName}}</h2>
+            <p ng-repeat="p in c.phoneNumbers" >
+                <a href="tel:{{p.value}}">{{p.value}}</a>
+            </p>
+            <button class="button button-positive" ng-click="callContact(c)">
                 <i class="icon ion-ios-telephone"></i>
             </button>
         </div>

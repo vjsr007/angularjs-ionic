@@ -38,9 +38,9 @@ app.Angular.registerCtrl('contactController', function ($scope) {
         var options = new ContactFindOptions();
         options.filter = "";
         options.multiple = true;
-        //options.desiredFields = [navigator.contacts.fieldType.id];
+
         options.hasPhoneNumber = true;
-        //var fields = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
+
         var fields = ["*"];
         navigator.contacts.find(fields, $scope.buscarContactosSuccess, app.onError, options);
     };
@@ -60,12 +60,8 @@ app.Angular.registerCtrl('contactController', function ($scope) {
      $scope.shouldShowReorder = false;
      $scope.listCanSwipe = true
 
-     $scope.callContact = function() {
-         navigator.contacts.pickContact(function (contact) {
-             console.log('The following contact has been selected:' + JSON.stringify(contact));
-         }, function (err) {
-             console.log('Error: ' + err);
-         });
+     $scope.callContact = function (contact) {
+         if (contact.phoneNumbers.length) location.href = "tel:" + contact.phoneNumbers[0].value;
      }
 
      document.addEventListener('deviceready', $scope.onDeviceReady, false);

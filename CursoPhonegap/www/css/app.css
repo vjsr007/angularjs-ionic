@@ -52,3 +52,6 @@
 .view-animate.ng-leave.ng-leave-active {
   left:-100%;
 }
+a, u {
+    text-decoration: none !important;
+}
