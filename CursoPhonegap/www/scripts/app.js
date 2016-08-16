@@ -22,7 +22,7 @@
 
     var handledError = function () {
         window.onerror = function (e) {
-            alert("Error de Aplicación\n" + e.message);;
+            alert("Error de Aplicación\n" + (e.message?e.message:e));
         };
     };
 
