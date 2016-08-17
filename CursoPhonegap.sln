@@ -43,9 +43,9 @@ Global
 		{86E38268-CF3D-4E99-A9D5-F5AAD9F98882}.Debug|Windows-ARM.ActiveCfg = Debug|Windows-ARM
 		{86E38268-CF3D-4E99-A9D5-F5AAD9F98882}.Debug|Windows-ARM.Build.0 = Debug|Windows-ARM
 		{86E38268-CF3D-4E99-A9D5-F5AAD9F98882}.Debug|Windows-ARM.Deploy.0 = Debug|Windows-ARM
-		{86E38268-CF3D-4E99-A9D5-F5AAD9F98882}.Debug|Windows-x64.ActiveCfg = Debug|Windows-x64
-		{86E38268-CF3D-4E99-A9D5-F5AAD9F98882}.Debug|Windows-x64.Build.0 = Debug|Windows-x64
-		{86E38268-CF3D-4E99-A9D5-F5AAD9F98882}.Debug|Windows-x64.Deploy.0 = Debug|Windows-x64
+		{86E38268-CF3D-4E99-A9D5-F5AAD9F98882}.Debug|Windows-x64.ActiveCfg = Debug|Android
+		{86E38268-CF3D-4E99-A9D5-F5AAD9F98882}.Debug|Windows-x64.Build.0 = Debug|Android
+		{86E38268-CF3D-4E99-A9D5-F5AAD9F98882}.Debug|Windows-x64.Deploy.0 = Debug|Android
 		{86E38268-CF3D-4E99-A9D5-F5AAD9F98882}.Debug|Windows-x86.ActiveCfg = Debug|Windows-x86
 		{86E38268-CF3D-4E99-A9D5-F5AAD9F98882}.Debug|Windows-x86.Build.0 = Debug|Windows-x86
 		{86E38268-CF3D-4E99-A9D5-F5AAD9F98882}.Debug|Windows-x86.Deploy.0 = Debug|Windows-x86

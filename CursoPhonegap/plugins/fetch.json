@@ -94,5 +94,21 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "phonegap-plugin-barcodescanner": {
+        "source": {
+            "type": "local",
+            "path": "C:\\Users\\Vj\\Downloads\\phonegap-plugin-barcodescanner-master\\phonegap-plugin-barcodescanner-master"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-compat": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-compat"
+        },
+        "is_top_level": false,
+        "variables": {}
     }
 }

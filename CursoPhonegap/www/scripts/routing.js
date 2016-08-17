@@ -64,7 +64,18 @@
                     var dependencies = ['scripts/controller/camaraController.js'];
                     return resolveDependencies($q, $rootScope, dependencies);
                 }]
-         }
+            }
+        });
+
+        $routeProvider.when('/barcode', {
+            templateUrl: 'views/barcode.html',
+            controller: 'barcodeController',
+            resolve: {
+                load: ['$q', '$rootScope', function ($q, $rootScope) {
+                    var dependencies = ['scripts/controller/barcodeController.js'];
+                    return resolveDependencies($q, $rootScope, dependencies);
+                }]
+            }
         });
 
         $routeProvider.otherwise({ redirectTo: '/' });
