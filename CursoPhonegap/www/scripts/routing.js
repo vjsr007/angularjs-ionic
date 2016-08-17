@@ -78,6 +78,17 @@
             }
         });
 
+        $routeProvider.when('/sim', {
+            templateUrl: 'views/sim.html',
+            controller: 'simController',
+            resolve: {
+                load: ['$q', '$rootScope', function ($q, $rootScope) {
+                    var dependencies = ['scripts/controller/simController.js'];
+                    return resolveDependencies($q, $rootScope, dependencies);
+                }]
+            }
+        });
+
         $routeProvider.otherwise({ redirectTo: '/' });
     }
 ]);

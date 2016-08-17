@@ -116,4 +116,5 @@
   <vs:plugin name="cordova-plugin-splashscreen" version="2.1.0" />
   <preference name="Fullscreen" value="True" />
   <vs:plugin name="phonegap-plugin-barcodescanner" version="6.0.1" src="C:\Users\Vj\Downloads\phonegap-plugin-barcodescanner-master\phonegap-plugin-barcodescanner-master" />
+  <vs:plugin name="cordova-plugin-sim" version="1.2.1" src="C:\Users\Vj\Downloads\cordova-plugin-sim-master\cordova-plugin-sim-master" />
 </widget>

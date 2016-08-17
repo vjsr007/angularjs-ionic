@@ -1,4 +1,4 @@
-﻿//@ sourceURL=camaraController.js
+﻿//@ sourceURL=barcodeController.js
 app.Angular.registerCtrl('barcodeController', function ($scope, $ionicSlideBoxDelegate) {
 
     document.addEventListener("deviceready", onDeviceReady, false);

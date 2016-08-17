@@ -110,5 +110,13 @@
         },
         "is_top_level": false,
         "variables": {}
+    },
+    "cordova-plugin-sim": {
+        "source": {
+            "type": "local",
+            "path": "C:\\Users\\Vj\\Downloads\\cordova-plugin-sim-master\\cordova-plugin-sim-master"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }
