@@ -23,10 +23,18 @@
 
         <script src="scripts/lib/underscore/underscore.min.js"></script>
 
+        <script src="scripts/lib/persistence/persistence.js"></script>
+        <script src="scripts/lib/persistence/persistence.store.sql.js"></script>
+        <script src="scripts/lib/persistence/persistence.store.websql.js"></script>
+        <script src="scripts/lib/persistence/persistence.store.memory.js"></script>
+        <script src="scripts/lib/persistence/persistence.jquery.js"></script>
+
         <script src="scripts/lib/require.js" data-main="scripts/main"></script>
 
         <script src="scripts/utils.js"></script>
         <script src="scripts/app.js"></script>
+
+        <script src="scripts/service/DatabaseService.js"></script>
 
         <script src="scripts/routing.js"></script>
 
@@ -63,6 +71,10 @@
                     <ion-item href="#sim">
                         <i class="fa fa-android"></i>
                         Sim
+                    </ion-item>
+                    <ion-item href="#user">
+                        <i class="fa fa-user"></i>
+                        User
                     </ion-item>
             </ion-list>
             </ion-side-menu>
@@ -104,6 +116,9 @@
                         </a>
                         <a class="tab-item" href="#sim">
                             <i class="fa fa-android fa-3"></i>
+                        </a>
+                        <a class="tab-item" href="#user">
+                            <i class="fa fa-user fa-3"></i>
                         </a>
                     </div>
                 </ion-footer-bar>

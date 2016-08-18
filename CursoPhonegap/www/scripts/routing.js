@@ -4,6 +4,7 @@
 
         var resolveDependencies = function ($q, $rootScope, dependencies) {
             var defer = $q.defer();
+
             require(dependencies, function () {
                 defer.resolve();
                 $rootScope.$apply()
@@ -84,6 +85,17 @@
             resolve: {
                 load: ['$q', '$rootScope', function ($q, $rootScope) {
                     var dependencies = ['scripts/controller/simController.js'];
+                    return resolveDependencies($q, $rootScope, dependencies);
+                }]
+            }
+        });
+
+        $routeProvider.when('/user', {
+            templateUrl: 'views/user.html',
+            controller: 'userController',
+            resolve: {
+                load: ['$q', '$rootScope', function ($q, $rootScope) {
+                    var dependencies = ['scripts/controller/userController.js'];
                     return resolveDependencies($q, $rootScope, dependencies);
                 }]
             }

@@ -1,0 +1,17 @@
+﻿<div ng-controller="userController">
+    <div class="text-center">
+        <h1>User</h1>
+    </div>
+    <form id="frmUser">
+        <label for="UserName">UserName</label>
+        <input type="text" id="UserName" ng-model="UserName" />
+        <br>
+        <label for="Name">Name</label>
+        <input type="text" id="Name" ng-model="Name" />
+        <br>
+        <label for="Active">Active</label>
+        <input type="checkbox" id="Active" ng-model="Active" />
+        <br>
+        <button type="button" id="btnAdd" ng-click="addUser()">Add</button>
+    </form>
+</div>
