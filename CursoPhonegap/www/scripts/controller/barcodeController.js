@@ -15,10 +15,10 @@ app.Angular.registerCtrl('barcodeController', function ($scope, $ionicSlideBoxDe
                alert("Scanning failed: " + error);
            },
            {
-               "preferFrontCamera": true, // iOS and Android
+               "preferFrontCamera": false, // iOS and Android
                "showFlipCameraButton": true, // iOS and Android
                "prompt": "Place a barcode inside the scan area", // supported on Android only
-               "formats": "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+               //"formats": "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
                "orientation": "landscape" // Android only (portrait|landscape), default unset so it rotates with the device
            }
         );
