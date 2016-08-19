@@ -1,4 +1,4 @@
-app.Angular.service('DatabaseService', function ($ionicPopup)  {
+app.Angular.service('DatabaseService', function ($ionicPopup, Msg) {
     "use strict";
 
     var self = this;
@@ -30,17 +30,7 @@ app.Angular.service('DatabaseService', function ($ionicPopup)  {
         persistence.add(data);
 
         persistence.flush(null, function () {
-            var params = {
-                $scope: this,
-                $ionicPopup: $ionicPopup,
-                title: "DatabaseService",
-                template: "<label>Sucess!!!</label>",
-                //callBack: function () {
-                //    alert("OK")
-                //}
-            }
-
-            utils.mostrarMensaje(params);
+            Msg.mostrarMensaje("Sucess!!!");
         });
     }
 

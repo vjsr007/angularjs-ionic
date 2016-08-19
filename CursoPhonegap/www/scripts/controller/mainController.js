@@ -1,5 +1,5 @@
 ﻿//@ sourceURL=mainController.js
-app.Angular.registerCtrl('mainController', function ($scope, $ionicActionSheet, $timeout, $ionicBackdrop, $ionicPopup, $ionicSideMenuDelegate) {
+app.Angular.registerCtrl('mainController', function ($scope, $ionicActionSheet, $timeout, $ionicBackdrop, $ionicPopup, $ionicSideMenuDelegate, Msg) {
     $scope.message = "";
 
     $scope.bateria = {};
@@ -55,19 +55,9 @@ app.Angular.registerCtrl('mainController', function ($scope, $ionicActionSheet, 
     };
 
     $scope.showPopup = function () {
-        var params = {
-            $scope: $scope,
-            $ionicPopup: $ionicPopup,
-            title: "Soy un confirm",
-            subTitle: "Yo un subtitulo",
-            template: "<label>Soy una etiqueta</label>",
-            callBack: function () {
-                alert("OK");
-            },
-            //$timeout: $timeout
-        }
-
-        utils.mostrarConfirmar(params);
+        Msg.mostrarMensaje("<label>Soy una etiqueta</label>",function () {
+            alert("OK");
+        });
     }
 
     $scope.showAlert = function () {
