@@ -1,0 +1,43 @@
+﻿<ion-header-bar class="bar-positive">
+    <div class="buttons">
+        <button class="button button-icon icon ion-ios-minus-outline"
+                ng-click="data.showDelete = !data.showDelete; data.showAdd = false"></button>
+    </div>
+
+    <h1 class="title"><div class="h1 title">{{Titulo}}</div></h1>
+    <div class="buttons">
+        <button class="button button-icon ion-plus" ng-click="openModal()"></button>
+    </div>
+</ion-header-bar>
+<ion-content>
+    <div class="bar bar-header item-input-inset">
+        <label class="item-input-wrapper">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="search" placeholder="Buscar">
+        </label>
+        <button class="button button-clear">
+            Cancelar
+        </button>
+    </div>
+    <ion-list show-delete="data.showDelete">
+        <ion-item ng-repeat="item in items"
+                  item="articulo"
+                  class="item item-thumbnail-left item-remove-animate"
+                  href="#">
+            <img src="data:image/jpeg;base64,{{ item.Img}}" id="imgArticuloModal" style="width:70%; height:auto; " />
+            <h2>{{ item.Articulo }}</h2>
+            <p>Depto: {{ item.Departamento}}</p>
+            <p>Categoria: {{ item.Categoria}}</p>
+            <p>Marca: {{ item.Marca}}</p>
+            <p>{{ item.Precio | currency  }}</p>
+            <ion-delete-button class="ion-minus-circled"
+                               ng-click="eliminarArticulo(item)">
+            </ion-delete-button>
+            <ion-option-button class="button-positive">Editar</ion-option-button>
+        </ion-item>
+    </ion-list>
+
+</ion-content>
+
+
+

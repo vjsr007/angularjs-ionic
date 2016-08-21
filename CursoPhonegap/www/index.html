@@ -1,128 +1,80 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Security-Policy" content="media-src *"> 
-        <meta charset="utf-8" />
-        <title>Curso Phonegap</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
 
-        <!-- CursoPhonegap references -->
-        <link href="css/lib/ionic/ionic.css" rel="stylesheet" />
-        <link href="css/lib/fontawesome/font-awesome.css" rel="stylesheet" />
+    <link href="css/lib/ionic/ionic.css" rel="stylesheet" />
+    <link href="css/lib/fontawesome/font-awesome.css" rel="stylesheet" />
 
-        <link href="css/app.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />    
 
-        <script src="cordova.js"></script>
-        <script src="scripts/platformOverrides.js"></script>
+    <script src="cordova.js"></script>
 
-        <script src="scripts/lib/jquery/jquery-2.1.4.min.js"></script>
+    <script src="scripts/libs/ionic/ionic.bundle.min.js"></script>
 
-        <script src="scripts/lib/ionic/ionic.bundle.min.js"></script>
-        <script src="scripts/lib/angular/angular-route.js"></script>
+    <script src="scripts/libs/jquery/jquery-2.1.4.min.js"></script>
 
-        <script src="scripts/lib/underscore/underscore.min.js"></script>
+    <script src="scripts/libs/underscore/underscore.min.js"></script>
 
-        <script src="scripts/lib/persistence/persistence.js"></script>
-        <script src="scripts/lib/persistence/persistence.store.sql.js"></script>
-        <script src="scripts/lib/persistence/persistence.store.websql.js"></script>
-        <script src="scripts/lib/persistence/persistence.store.memory.js"></script>
-        <script src="scripts/lib/persistence/persistence.jquery.js"></script>
+    <script src="scripts/libs/persistence/persistence.js"></script>
+    <script src="scripts/libs/persistence/persistence.store.sql.js"></script>
+    <script src="scripts/libs/persistence/persistence.store.websql.js"></script>
+    <script src="scripts/libs/persistence/persistence.store.memory.js"></script>
+    <script src="scripts/libs/persistence/persistence.jquery.js"></script>
 
-        <script src="scripts/lib/require.js"></script>
+    <script src="scripts/libs/require.js"></script>
 
-        <script src="scripts/app.js"></script>
-
-        <!-- SERVICES -->
-        <script src="scripts/service/Msg.js"></script>
-        <script src="scripts/service/DatabaseService.js"></script>
-
-
-        <script src="scripts/routing.js"></script>
-
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=weather"></script>
-    </head>
-    <body ng-app="CursoPhonegap">
-        <ion-side-menus>
-            <ion-side-menu side="left">
-                <ion-list>
-                    <ion-item href="#/">
+    <!-- Aplicación -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controller/appControllers.js"></script>
+</head>
+<body ng-app="MandaditoShop.Appliedsw.com">
+    <ion-side-menus>
+        <ion-side-menu side="left">
+            <ion-list>
+                <ion-item href="#/">
+                    <i class="icon ion-home"></i>
+                    Home
+                </ion-item>
+                <ion-item href="#listas">
+                    <i class="icon ion-clipboard"></i>
+                    Listas
+                </ion-item>
+                <ion-item href="#articulos">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    Articulos
+                </ion-item>
+            </ion-list>
+        </ion-side-menu>
+        <ion-side-menu-content>
+            <!--Header-->
+            <ion-header-bar id="header" align-title="left" class="bar-positive" ng-controller="appController">
+                <button ng-click="toggleLeft()" class="button icon ion-navicon"></button>
+                <h1 class="title"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span style="padding-left: 35px;">Mandadito Shop</span></h1>
+            </ion-header-bar>
+            <!--Content-->
+            <ion-content class="map-container view-animate-container">
+                <ion-nav-view class="view-animate"></ion-nav-view>
+            </ion-content>
+            <!--Footer-->
+            <ion-footer-bar align-title="left">
+                <div class="tabs">
+                    <a class="tab-item" href="#/">
                         <i class="icon ion-home"></i>
                         Home
-                    </ion-item>
-                    <ion-item href="#contact">
-                        <i class="icon ion-person-stalker"></i>
-                        Contactos
-                    </ion-item>
-                    <ion-item href="#ubicacion">
-                        <i class="icon ion-location"></i>
-                        Ubicación
-                    </ion-item>
-                    <ion-item href="#camara">
-                        <i class="icon ion-camera"></i>
-                        Camara
-                    </ion-item>
-                    <ion-item href="#about">
-                        <i class="icon ion-information-circled"></i>
-                        Brujula
-                    </ion-item>
-                    <ion-item href="#barcode">
-                        <i class="fa fa-barcode"></i>
-                        Barcode
-                    </ion-item>
-                    <ion-item href="#sim">
-                        <i class="fa fa-android"></i>
-                        Sim
-                    </ion-item>
-                    <ion-item href="#user">
-                        <i class="fa fa-user"></i>
-                        User
-                    </ion-item>
-            </ion-list>
-            </ion-side-menu>
-            <ion-side-menu-content>
-                <!--Header-->
-                <ion-header-bar id="header" align-title="left" class="bar-positive" ng-controller="appController">
-                    <button ng-click="toggleLeft()" class="button icon ion-navicon"></button>
-                    <h1 class="title"><i class="fa fa-mobile fa-2x"></i> Curso Phonegap</h1>
-                </ion-header-bar>
-                <!--Content-->
-                <ion-content class="map-container view-animate-container">
-                    <div ng-view class="view-animate"></div>
-                </ion-content>
-                <!--Footer-->
-                <ion-footer-bar align-title="left">
-                    <div class="tabs">
-                        <a class="tab-item" href="#/">
-                            <i class="icon ion-home"></i>
-                            Home
-                        </a>
-                        <a class="tab-item" href="#contact">
-                            <i class="icon ion-person-stalker"></i>
-                            Contactos
-                        </a>
-                        <a class="tab-item" href="#ubicacion">
-                            <i class="icon ion-location"></i>
-                            Ubicación
-                        </a>
-                        <a class="tab-item" href="#camara">
-                            <i class="icon ion-camera"></i>
-                            Camara
-                        </a>
-                        <a class="tab-item" href="#about">
-                            <i class="icon ion-information-circled"></i>
-                            Brujula
-                        </a>
-                        <a class="tab-item" href="#barcode">
-                            <i class="fa fa-barcode fa-3" ></i>
-                        </a>
-                        <a class="tab-item" href="#sim">
-                            <i class="fa fa-android fa-3"></i>
-                        </a>
-                        <a class="tab-item" href="#user">
-                            <i class="fa fa-user fa-3"></i>
-                        </a>
-                    </div>
-                </ion-footer-bar>
-            </ion-side-menu-content>
-        </ion-side-menus>
-    </body>
+                    </a>
+                    <a class="tab-item" href="#listas">
+                        <i class="icon ion-clipboard"></i>
+                        Listas
+                    </a>
+                    <a class="tab-item" href="#articulos">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </ion-footer-bar>
+        </ion-side-menu-content>
+    </ion-side-menus>    
+</body>
 </html>

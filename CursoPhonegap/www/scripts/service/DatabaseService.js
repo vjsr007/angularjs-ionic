@@ -1,14 +1,19 @@
-app.Angular.service('DatabaseService', function ($ionicPopup, Msg) {
+angular.registerService('DatabaseService', function ($ionicPopup, Msg) {
     "use strict";
 
     var self = this;
 
     var Entities = [
         {
-            name: 'User',
+            name: 'Articulo',
             fields: {
-                UserName: "TEXT",
-                Name: "TEXT",
+                Codigo: "TEXT",
+                Articulo: "TEXT",
+                Departamento: "TEXT",
+                Categoria: "TEXT",
+                Marca: "TEXT",
+                Precio: "REAL",
+                Img: "BLOB",
                 Active: "BOOL",
             }
         }
@@ -16,7 +21,7 @@ app.Angular.service('DatabaseService', function ($ionicPopup, Msg) {
 
     this.openDatabase = function () {
         if (window.openDatabase) {
-            persistence.store.websql.config(persistence, "cursophonegap", 'database', 5 * 1024 * 1024);
+            persistence.store.websql.config(persistence, "MandaditoShop", 'database', 5 * 1024 * 1024);
         } else {
             persistence.store.memory.config(persistence);
         }
@@ -45,6 +50,27 @@ app.Angular.service('DatabaseService', function ($ionicPopup, Msg) {
     this.resetDatabase = function () {
         persistence.reset();
         persistence.schemaSync();
+    }
+
+    this.jsonAll = function (entity) {
+        var objects = new Array;
+        entity
+            .all()
+            .list(null, function (results) {
+                results.forEach(function (t) {
+                    var object = new Object;
+                    var getType = {};
+                    for (var name in t) {
+                        if (t.hasOwnProperty(name)) {
+                            object[name] = getType.toString.call(t[name]) == '[object Function]' ? (t[name])() : t[name]
+                        }
+                    }
+
+                    objects.push(object);
+                })
+            });
+
+        return objects
     }
 
     this.load = function () {

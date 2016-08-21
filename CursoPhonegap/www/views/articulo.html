@@ -1,0 +1,65 @@
+﻿<ion-modal-view>
+    <form id="frmArticulo" name="frmArticulo">
+
+        <ion-header-bar class="bar bar-header bar-positive">
+            <h1 class="title">Nuevo Articulo</h1>
+            <button class="button button-clear button-primary" ng-click="modal.hide()">Cancelar</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+            <div class="list">
+                <label class="item item-input">
+                    <span class="input-label">Articulo</span>
+                    <input ng-model="newArticulo.Articulo" ng-model-options="{ updateOn: 'blur' }" required uiCurrency name="Articulo" type="text">                    
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Codigo</span>
+                    <input ng-model="newArticulo.Codigo" name="Codigo" ng-focus="leerCodigo()" type="text">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Departamento</span>
+                    <input ng-model="newArticulo.Departamento" ng-model-options="{ updateOn: 'blur' }" required name="Departamento" type="text">
+                    
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Categoria</span>
+                    <input ng-model="newArticulo.Categoria" ng-model-options="{ updateOn: 'blur' }" required name="Categoria" type="text">
+                    
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Marca</span>
+                    <input ng-model="newArticulo.Marca" ng-model-options="{ updateOn: 'blur' }" required name="Marca" type="text">
+                    
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Precio</span>
+                    <input ng-model="newArticulo.Precio" ng-model-options="{ updateOn: 'blur' }" required name="Precio" type="number">
+                    
+                </label>
+                <ion-toggle ng-model="newArticulo.Activo" name="Activo" style="width:100%">Activo</ion-toggle>
+
+                <img ng-show="mostrarFoto" src="" id="imgArticuloModal" style="width:70%; height:auto; " />
+                <button class="button button-full button-positive" ng-click="cargarFoto()">Foto</button>              
+                  
+                <button class="button button-full button-positive" name="btnCrearArticulo" ng-disabled="frmArticulo.$invalid" ng-click="crearArticulo(newArticulo)">Crear</button>
+            </div>
+
+            <div class="list">
+                <span class="messages" ng-show="frmArticulo.$submitted || frmArticulo.Articulo.$touched">
+                    <p ng-show="frmArticulo.Articulo.$error.required">Articulo es requerido.</p>
+                </span>
+                <span class="messages" ng-show="frmArticulo.$submitted || frmArticulo.Departamento.$touched">
+                    <p ng-show="frmArticulo.Departamento.$error.required">Departamento es requerido.</p>
+                </span>
+                <span class="messages" ng-show="frmArticulo.$submitted || frmArticulo.Categoria.$touched">
+                    <p ng-show="frmArticulo.Categoria.$error.required">Categoria es requerido.</p>
+                </span>
+                <span class="messages" ng-show="frmArticulo.$submitted || frmArticulo.Marca.$touched">
+                    <p ng-show="frmArticulo.Marca.$error.required">Marca es requerido.</p>
+                </span>
+                <span class="messages" ng-show="frmArticulo.$submitted || frmArticulo.Precio.$touched">
+                    <p ng-show="frmArticulo.Precio.$error.required">Precio es requerido.</p>
+                </span>
+            </div>
+        </ion-content>
+    </form>
+</ion-modal-view>

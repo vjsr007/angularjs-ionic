@@ -1,4 +1,4 @@
-﻿angular.registerService('Msg', function ($ionicPopup) {
+﻿app.Angular.service('Msg', function ($ionicPopup) {
     "use strict";
 
     var Titulo = "";
@@ -7,7 +7,7 @@
     this.mostrarConfirmar = function (mensaje, titulo, subtitulo, data) {
         var getType = {};
         var callback = arguments ? arguments[arguments.length - 1] : null;
-
+        // An elaborate, custom popup
         var myPopup = $ionicPopup.show({
             template: mensaje ? (callback && getType.toString.call(mensaje) == '[object Function]' ? "" : mensaje) : "",
             title: titulo ? (callback && getType.toString.call(titulo) == '[object Function]' ? Titulo : titulo) : Titulo,
