@@ -41,3 +41,35 @@ ion-footer-bar .fa {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+.item-options .button {
+/* height: 100%; */
+border: none;
+border-radius: 0;
+display: -webkit-inline-box;
+display: -webkit-inline-flex;
+display: -moz-inline-flex;
+display: -ms-inline-flexbox;
+display: inline-flex;
+-webkit-box-align: center;
+-ms-flex-align: center;
+-webkit-align-items: center;
+-moz-align-items: center;
+align-items: center;
+/* float: left; */
+}
+.item-options .button .fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-left: 6px;
+}
+ion-item img {
+    margin-top: 30px;
+    -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+    transform: rotate(90deg);
+}
