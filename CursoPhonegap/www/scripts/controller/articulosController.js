@@ -8,15 +8,19 @@ angular
     vm.init = init;
     vm.mostrarFoto = false;
     vm.buttons = { showDelete: false,showAdd: false};
-    vm.newArticulo = {};
+    vm.Articulo = {};
     vm.openModal = openModal;
     vm.crearArticulo = crearArticulo;
     vm.moveItem = moveItem;
     vm.eliminarArticulo = eliminarArticulo;
     vm.leerCodigo = leerCodigo;
     vm.cargarFoto = cargarFoto;
+    vm.editarModal = editarModal;
+    vm.editarArticulo = editarArticulo;
+    vm.editando = false;
+    vm.guardarCambios = guardarCambios;
     vm.modal = {};
-
+    
     //DUMMY DATA
     vm.items = {};
 
@@ -34,44 +38,88 @@ angular
     }    
 
     function openModal() {
+        vm.ImgSrc = "";
+        vm.mostrarFoto = false;
         vm.modal.show();
     };
 
-    function crearArticulo(a) {
-        var Articulo = new DatabaseService.Articulo;
+    function crearArticulo() {
+        var Articulo = new DatabaseService.Articulo(vm.Articulo);
 
-        Articulo.Codigo(a.Codigo);
-        Articulo.Articulo(a.Articulo);
-        Articulo.Departamento(a.Departamento);
+        DatabaseService.saveRow(Articulo, function () {
+            Msg.mostrarMensaje('Articulo agregado');
 
-        Articulo.Categoria(a.Categoria);
-        Articulo.Marca(a.Marca);
-        Articulo.Precio(a.Precio);
+            vm.Articulo = {};
 
-        Articulo.Img(a.Img);
-        Articulo.Active(a.Active);
+            vm.modal.hide();
 
-        DatabaseService.addRow(Articulo);
-
-        vm.newArticulo = {};
-
-        vm.modal.hide();
-
-        vm.items = DatabaseService.jsonAll(DatabaseService.Articulo);
-    };
+            vm.items = DatabaseService.jsonAll(DatabaseService.Articulo);
+        });
+    }
 
     function moveItem(item, fromIndex, toIndex) {
         $scope.items.splice(fromIndex, 1);
         $scope.items.splice(toIndex, 0, item);
 
         Msg.mostrarMensaje('Moved Item: ' + item.id + ' From: ' + fromIndex + ' To: ' + toIndex);
-    };
+    }
 
     function eliminarArticulo(item) {
-        $scope.items.splice($scope.items.indexOf(item), 1);
+        DatabaseService.getById(DatabaseService.Articulo, item.id, function (Articulo) {
+            DatabaseService.removeRow(Articulo, function () {
+                Msg.mostrarMensaje('Articulo eliminado');
+                vm.items = DatabaseService.jsonAll(DatabaseService.Articulo);
+            });
+        });        
+    }
 
-        Msg.mostrarMensaje('Deleted Item: ' + item.id);
-    };
+    function editarModal(item) {
+        DatabaseService.getById(DatabaseService.Articulo, item.id, function (result) {
+            vm.Articulo = result.toJSON();
+            vm.ImgSrc = "data:image/jpeg;base64," + vm.Articulo.Img;
+            vm.mostrarFoto = true;
+            vm.editando = true;
+        
+            vm.modal.show();
+        });
+    }
+
+    function editarArticulo() {
+        DatabaseService.getById(DatabaseService.Articulo, vm.Articulo.id, function (Articulo) {
+
+            var a = vm.Articulo;
+
+            Articulo.Codigo(a.Codigo);
+            Articulo.Articulo(a.Articulo);
+            Articulo.Departamento(a.Departamento);
+
+            Articulo.Categoria(a.Categoria);
+            Articulo.Marca(a.Marca);
+            Articulo.Precio(a.Precio);
+
+            Articulo.Img(a.Img);
+            Articulo.Active(a.Active);
+
+            DatabaseService.saveRow(Articulo, function () {
+                Msg.mostrarMensaje('Articulo editado');
+
+                vm.Articulo = {};
+
+                vm.modal.hide();
+
+                vm.items = DatabaseService.jsonAll(DatabaseService.Articulo);
+            });
+        });
+    }
+
+    function guardarCambios() {
+        if (vm.editando) {
+            editarArticulo()
+        }
+        else {
+            crearArticulo()
+        }
+    }
 
     function leerCodigo() {
         document.addEventListener("deviceready", iniciarScanner, false);
@@ -82,7 +130,7 @@ angular
            function (result) {
 
                vm.$apply(function () {
-                   vm.newArticulo.Codigo = result.text;
+                   vm.Articulo.Codigo = result.text;
                });
                
            },
@@ -103,12 +151,11 @@ angular
     }
 
     function iniciarCamara() {
-        navigator.camera.getPicture(function (imageData) {
-            var image = document.getElementById('imgArticuloModal');
-            image.src = "data:image/jpeg;base64," + imageData;
+        navigator.camera.getPicture(function (imageData) {           
 
             vm.$apply(function () {
-                vm.newArticulo.Img = imageData;
+                vm.ImgSrc = "data:image/jpeg;base64," + imageData;
+                vm.Articulo.Img = imageData;
                 vm.mostrarFoto = true;
             });
         }, function (message) {

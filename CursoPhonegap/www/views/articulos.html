@@ -23,8 +23,9 @@
         <ion-item ng-repeat="item in items"
                   item="articulo"
                   class="item item-thumbnail-left item-remove-animate"
+                  ng-click="editarModal(item)"
                   href="#">
-            <img src="data:image/jpeg;base64,{{ item.Img}}" id="imgArticuloModal" style="width:70%; height:auto; " />
+            <img src="data:image/jpeg;base64,{{ item.Img}}" id="imgArticulo" style="width:70%; height:auto; " />
             <h2>{{ item.Articulo }}</h2>
             <p>Depto: {{ item.Departamento}}</p>
             <p>Categoria: {{ item.Categoria}}</p>
@@ -33,8 +34,7 @@
             <ion-delete-button class="ion-minus-circled"
                                ng-click="eliminarArticulo(item)">
             </ion-delete-button>
-            <ion-option-button class="button-positive"> <i class="fa fa-pencil" aria-hidden="true"></i></ion-option-button>
-            <ion-option-button class="button-stable"> <i class="fa fa-check" aria-hidden="true"></i></ion-option-button>
+            <ion-option-button class="button-positive" ng-click="editarModal(item)"> <i class="fa fa-pencil" aria-hidden="true"></i></ion-option-button>
         </ion-item>
     </ion-list>
 

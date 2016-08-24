@@ -31,11 +31,21 @@ angular.registerService('DatabaseService', function ($ionicPopup, Msg) {
         persistence.schemaSync();
     }
 
-    this.addRow = function (data) {
+    this.saveRow = function (data, callBack) {
         persistence.add(data);
 
         persistence.flush(null, function () {
-            Msg.mostrarMensaje("Sucess!!!");
+            var getType = {};
+            if (getType.toString.call(callBack) == '[object Function]') callBack();
+        });
+    }
+
+    this.removeRow = function (data, callBack) {
+        persistence.remove(data);
+
+        persistence.flush(null, function () {
+            var getType = {};
+            if (getType.toString.call(callBack) == '[object Function]') callBack();
         });
     }
 
@@ -71,6 +81,13 @@ angular.registerService('DatabaseService', function ($ionicPopup, Msg) {
             });
 
         return objects
+    }
+
+    this.getById = function (entity, value, callBack) {
+        entity
+            .all()
+            .filter("id", '=', value)
+            .one(null, callBack);
     }
 
     this.load = function () {

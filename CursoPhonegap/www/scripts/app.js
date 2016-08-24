@@ -34,7 +34,6 @@ angular.module('MandaditoShop.Appliedsw.com', ['ionic', 'MandaditoShop.Appliedsw
     };
 
     $stateProvider
-
     .state('home', {
         url: '/',
         templateUrl: 'views/home.html',

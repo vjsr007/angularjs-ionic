@@ -2,45 +2,48 @@
     <form id="frmArticulo" name="frmArticulo">
 
         <ion-header-bar class="bar bar-header bar-positive">
-            <h1 class="title">Nuevo Articulo</h1>
+            <h1 class="title">Articulo</h1>
             <button class="button button-clear button-primary" ng-click="modal.hide()">Cancelar</button>
         </ion-header-bar>
         <ion-content class="padding">
             <div class="list">
                 <label class="item item-input">
                     <span class="input-label">Articulo</span>
-                    <input ng-model="newArticulo.Articulo" ng-model-options="{ updateOn: 'blur' }" required uiCurrency name="Articulo" type="text">                    
+                    <input ng-model="Articulo.Articulo" ng-model-options="{ updateOn: 'blur' }" required uiCurrency name="Articulo" type="text">                    
                 </label>
                 <label class="item item-input">
                     <span class="input-label">Codigo</span>
-                    <input ng-model="newArticulo.Codigo" name="Codigo" ng-focus="leerCodigo()" type="text">
+                    <input ng-model="Articulo.Codigo" name="Codigo" ng-focus="leerCodigo()" type="text">
                 </label>
                 <label class="item item-input">
                     <span class="input-label">Departamento</span>
-                    <input ng-model="newArticulo.Departamento" ng-model-options="{ updateOn: 'blur' }" required name="Departamento" type="text">
+                    <input ng-model="Articulo.Departamento" ng-model-options="{ updateOn: 'blur' }" required name="Departamento" type="text">
                     
                 </label>
                 <label class="item item-input">
                     <span class="input-label">Categoria</span>
-                    <input ng-model="newArticulo.Categoria" ng-model-options="{ updateOn: 'blur' }" required name="Categoria" type="text">
+                    <input ng-model="Articulo.Categoria" ng-model-options="{ updateOn: 'blur' }" required name="Categoria" type="text">
                     
                 </label>
                 <label class="item item-input">
                     <span class="input-label">Marca</span>
-                    <input ng-model="newArticulo.Marca" ng-model-options="{ updateOn: 'blur' }" required name="Marca" type="text">
+                    <input ng-model="Articulo.Marca" ng-model-options="{ updateOn: 'blur' }" required name="Marca" type="text">
                     
                 </label>
                 <label class="item item-input">
                     <span class="input-label">Precio</span>
-                    <input ng-model="newArticulo.Precio" ng-model-options="{ updateOn: 'blur' }" required name="Precio" type="number">
+                    <input ng-model="Articulo.Precio" ng-model-options="{ updateOn: 'blur' }" required name="Precio" type="number">
                     
                 </label>
-                <ion-toggle ng-model="newArticulo.Activo" name="Activo" style="width:100%">Activo</ion-toggle>
+                <ion-toggle ng-model="Articulo.Active" name="Activo" style="width:100%">Activo</ion-toggle>
 
-                <img ng-show="mostrarFoto" src="" id="imgArticuloModal" style="width:70%; height:auto; " />
+                <ion-item>
+                    <img ng-show="mostrarFoto" src="{{ImgSrc}}" id="imgArticuloModal" style="width:100%; height:100%; clear: both; " />
+                </ion-item>
+
                 <button class="button button-full button-positive" ng-click="cargarFoto()">Foto</button>              
-                  
-                <button class="button button-full button-positive" name="btnCrearArticulo" ng-disabled="frmArticulo.$invalid" ng-click="crearArticulo(newArticulo)">Crear</button>
+                 
+                <button class="button button-full button-positive" name="btnCrearArticulo" ng-disabled="frmArticulo.$invalid" ng-click="guardarCambios()"><i class="fa fa-pencil" aria-hidden="true"></i> Guardar</button>
             </div>
 
             <div class="list">
