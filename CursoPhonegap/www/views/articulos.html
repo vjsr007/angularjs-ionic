@@ -13,9 +13,9 @@
     <div class="bar bar-header item-input-inset">
         <label class="item-input-wrapper">
             <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="search" placeholder="Buscar">
+            <input type="text" placeholder="Buscar" ng-model="SearchText" ng-change="obtenerLista(this)" />
         </label>
-        <button class="button button-clear">
+        <button class="button button-clear" ng-click="clearSearch()">
             Cancelar
         </button>
     </div>

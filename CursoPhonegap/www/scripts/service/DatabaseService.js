@@ -3,6 +3,8 @@ angular.registerService('DatabaseService', function ($ionicPopup, Msg) {
 
     var self = this;
 
+    var n = 10;
+
     var Entities = [
         {
             name: 'Articulo',
@@ -15,6 +17,14 @@ angular.registerService('DatabaseService', function ($ionicPopup, Msg) {
                 Precio: "REAL",
                 Img: "BLOB",
                 Active: "BOOL",
+                FechaCreacion: "REAL",
+                FUM: "REAL"
+            }
+        },
+        {
+            name: 'Configuracion',
+            fields: {
+                TopRows: "INTEGER",
             }
         }
     ];
@@ -90,10 +100,54 @@ angular.registerService('DatabaseService', function ($ionicPopup, Msg) {
             .one(null, callBack);
     }
 
+    this.getList = function (entity, property, value) {
+        var objects = new Array;
+
+        entity
+            .all()
+            .filter(property, 'like', '%' + value + '%')
+            .list(null, function (results) {
+                results.forEach(function (t) {
+                    var object = new Object;
+                    var getType = {};
+                    for (var name in t) {
+                        if (t.hasOwnProperty(name)) {
+                            object[name] = getType.toString.call(t[name]) == '[object Function]' ? (t[name])() : t[name]
+                        }
+                    }
+
+                    objects.push(object);
+                })
+            });
+
+        return objects
+    }
+
     this.load = function () {
         this.openDatabase();
 
         this.defineEntities(Entities);
+
+        this.initCfg();
+    }
+
+    this.initCfg = function () {
+        var entity = this.Configuracion;
+        entity
+            .all()
+            .one(null,
+                function (cfg) {
+                    if (!cfg) cfg = new entity();
+
+                    cfg.TopRows(10);
+
+                    persistence.add(cfg);
+
+                    persistence.flush();
+
+                    persistence.flush();
+                }
+            );
     }
 
 });

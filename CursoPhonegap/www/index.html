@@ -3,7 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *;script-src 'self' http://onlineerp.solution.quebec 'unsafe-inline' 'unsafe-eval'; ">
     <title></title>
+
 
     <link href="css/lib/ionic/ionic.css" rel="stylesheet" />
     <link href="css/lib/fontawesome/font-awesome.css" rel="stylesheet" />
@@ -22,7 +25,6 @@
     <script src="scripts/libs/persistence/persistence.store.sql.js"></script>
     <script src="scripts/libs/persistence/persistence.store.websql.js"></script>
     <script src="scripts/libs/persistence/persistence.store.memory.js"></script>
-    <script src="scripts/libs/persistence/persistence.jquery.js"></script>
 
     <script src="scripts/libs/require.js"></script>
 

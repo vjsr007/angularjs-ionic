@@ -19,6 +19,8 @@ angular
     vm.editarArticulo = editarArticulo;
     vm.editando = false;
     vm.guardarCambios = guardarCambios;
+    vm.obtenerLista = obtenerLista;
+    vm.clearSearch = clearSearch;
     vm.modal = {};
     
     //DUMMY DATA
@@ -34,7 +36,7 @@ angular
             vm.modal = modal;
         });
 
-        vm.items = vm.items = DatabaseService.jsonAll(DatabaseService.Articulo);
+        vm.items = DatabaseService.jsonAll(DatabaseService.Articulo);
     }    
 
     function openModal() {
@@ -164,6 +166,21 @@ angular
             quality: 50,
             destinationType: Camera.DestinationType.DATA_URL
         });
+    }
+
+    function obtenerLista(control){
+        if ($.trim(control.SearchText) != "") {
+            vm.items = DatabaseService.getList(DatabaseService.Articulo, "Articulo", $.trim(control.SearchText));
+        }
+        else {
+            vm.items = DatabaseService.jsonAll(DatabaseService.Articulo);
+        }
+    }
+
+    function clearSearch(){
+        this.SearchText = "";
+
+        vm.items = DatabaseService.jsonAll(DatabaseService.Articulo);
     }
 
     vm.init();

@@ -25,9 +25,8 @@ persistence.store.cordovasql = {};
  * @param description
  * @param size
  * @param backgroundProcessing
- * @param iOSLocation
  */
-persistence.store.cordovasql.config = function (persistence, dbname, dbversion, description, size, backgroundProcessing, iOSLocation) {
+persistence.store.cordovasql.config = function (persistence, dbname, dbversion, description, size, backgroundProcessing) {
   var conn = null;
 
   /**
@@ -68,12 +67,11 @@ persistence.store.cordovasql.config = function (persistence, dbname, dbversion, 
    *
    * @param dbname
    * @param backgroundProcessing
-   * @param iOSLocation
    * @returns {{}}
    */
-  persistence.db.sqliteplugin.connect = function (dbname, backgroundProcessing, iOSLocation) {
+  persistence.db.sqliteplugin.connect = function (dbname, backgroundProcessing) {
     var that = {};
-    var conn = window.sqlitePlugin.openDatabase({name: dbname, bgType: backgroundProcessing, location: (iOSLocation || 0)});
+    var conn = window.sqlitePlugin.openDatabase({name: dbname, bgType: backgroundProcessing});
 
     that.transaction = function (fn) {
       return conn.transaction(function (sqlt) {
@@ -167,12 +165,11 @@ persistence.store.cordovasql.config = function (persistence, dbname, dbversion, 
    * @param description
    * @param size
    * @param backgroundProcessing
-   * @param iOSLocation
    * @returns {*}
    */
-  persistence.db.connect = function (dbname, dbversion, description, size, backgroundProcessing, iOSLocation) {
+  persistence.db.connect = function (dbname, dbversion, description, size, backgroundProcessing) {
     if (persistence.db.implementation == "sqliteplugin") {
-      return persistence.db.sqliteplugin.connect(dbname, backgroundProcessing, iOSLocation);
+      return persistence.db.sqliteplugin.connect(dbname, backgroundProcessing);
     } else if (persistence.db.implementation == "websql") {
       return persistence.db.websql.connect(dbname, dbversion, description, size);
     }
@@ -228,7 +225,7 @@ persistence.store.cordovasql.config = function (persistence, dbname, dbversion, 
   persistence.store.sql.config(persistence, persistence.store.cordovasql.sqliteDialect);
 
   // Make the connection
-  conn = persistence.db.connect(dbname, dbversion, description, size, backgroundProcessing, iOSLocation);
+  conn = persistence.db.connect(dbname, dbversion, description, size, backgroundProcessing);
   if (!conn) {
     throw new Error("No supported database found in this browser.");
   }

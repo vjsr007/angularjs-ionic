@@ -391,11 +391,9 @@ function config(persistence, dialect) {
       }
     }
     var additionalQueries = [];
-    if(meta && meta.hasMany) {
-      for(var p in meta.hasMany) {
-        if(meta.hasMany.hasOwnProperty(p)) {
-          additionalQueries = additionalQueries.concat(persistence.get(obj, p).persistQueries());
-        }
+    for(var p in meta.hasMany) {
+      if(meta.hasMany.hasOwnProperty(p)) {
+        additionalQueries = additionalQueries.concat(persistence.get(obj, p).persistQueries());
       }
     }
     executeQueriesSeq(tx, additionalQueries, function() {
@@ -563,6 +561,16 @@ function config(persistence, dialect) {
       } else {
         return aliasPrefix + '`' + this.property + "` NOT IN (" + qs.join(', ') + ")";
       }
+    } else if (this.operator === 'like' || this.operator === 'not like') {
+      var result = aliasPrefix + '`' + this.property + '` ' + this.operator.toUpperCase() + ' ' + tm.outVar('?', sqlType);
+      values.push(this.value);
+
+      if (this.escapeChar) {
+          result += ' ESCAPE ' + tm.outVar('?', sqlType);
+          values.push(this.escapeChar);
+      }
+
+      return result;
     } else {
       var value = this.value;
       if(value === true || value === false) {
