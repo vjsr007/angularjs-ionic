@@ -1,11 +1,18 @@
-angular.registerService('DatabaseService', function ($ionicPopup, Msg) {
+angular.registerService('DatabaseService', function ($q, Msg) {
     "use strict";
 
     var self = this;
 
     var n = 10;
 
-    var Entities = [
+    var config = {
+        apiKey: "AIzaSyB6JJOocfwEkSE47u68AYcH2jXt_Bg4GAs",
+        authDomain: "mandaditoshop.firebaseapp.com",
+        databaseURL: "https://mandaditoshop.firebaseio.com",
+        storageBucket: "mandaditoshop.appspot.com",
+    };
+
+    this.Entities = [
         {
             name: 'Articulo',
             fields: {
@@ -30,11 +37,20 @@ angular.registerService('DatabaseService', function ($ionicPopup, Msg) {
     ];
 
     this.openDatabase = function () {
+        var defered = $q.defer();
+        var promise = defered.promise;
+
+
         if (window.openDatabase) {
             persistence.store.websql.config(persistence, "MandaditoShop", 'database', 5 * 1024 * 1024);
         } else {
             persistence.store.memory.config(persistence);
         }
+
+        defered.resolve();
+
+        return promise;
+
     }
 
     this.schemaSync = function () {
@@ -63,7 +79,7 @@ angular.registerService('DatabaseService', function ($ionicPopup, Msg) {
         Entities.forEach(function (entity) {
             self[entity.name] = persistence.define(entity.name, entity.fields);
         });
-
+        
         persistence.schemaSync();
     }
 
@@ -73,6 +89,10 @@ angular.registerService('DatabaseService', function ($ionicPopup, Msg) {
     }
 
     this.jsonAll = function (entity) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+
+
         var objects = new Array;
         entity
             .all()
@@ -82,15 +102,22 @@ angular.registerService('DatabaseService', function ($ionicPopup, Msg) {
                     var getType = {};
                     for (var name in t) {
                         if (t.hasOwnProperty(name)) {
-                            object[name] = getType.toString.call(t[name]) == '[object Function]' ? (t[name])() : t[name]
+                            var tipo = getType.toString.call(t[name]);
+                            if (tipo != '[object Function]' && tipo!='[object Object]') {
+                                object[name] = t[name] == null ? "": t[name].toString(); 
+                            }                            
                         }
                     }
 
                     objects.push(object);
                 })
+
+                defered.resolve(objects);
             });
 
-        return objects
+        return promise;
+
+
     }
 
     this.getById = function (entity, value, callBack) {
@@ -124,11 +151,20 @@ angular.registerService('DatabaseService', function ($ionicPopup, Msg) {
     }
 
     this.load = function () {
-        this.openDatabase();
+        var defered = $q.defer();
+        var promise = defered.promise;
 
-        this.defineEntities(Entities);
 
-        this.initCfg();
+        self.openDatabase().then(function () {
+            self.defineEntities(self.Entities);
+
+            self.initCfg();
+        });
+
+        defered.resolve();
+
+        return promise;
+
     }
 
     this.initCfg = function () {
@@ -139,11 +175,9 @@ angular.registerService('DatabaseService', function ($ionicPopup, Msg) {
                 function (cfg) {
                     if (!cfg) cfg = new entity();
 
-                    cfg.TopRows(10);
+                    cfg.TopRows = 10;
 
                     persistence.add(cfg);
-
-                    persistence.flush();
 
                     persistence.flush();
                 }

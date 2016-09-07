@@ -1,8 +1,10 @@
 ﻿"use strict";
 angular
-.registerController('articulosController', function ($scope, Msg, DatabaseService, $ionicModal) {
+.registerController('articulosController', function ($scope, Msg, DatabaseService, Firebase3Service, $ionicModal) {
     var vm = $scope;
-      
+    var ds = DatabaseService;
+    var fb3 = Firebase3Service;
+
     //INTERFACE
     vm.Titulo = "Articulos";
     vm.init = init;
@@ -28,16 +30,22 @@ angular
 
     //IMPLEMENTACION
     function init() {
-        DatabaseService.load();
+        ds.load().then(function(){
+            $ionicModal.fromTemplateUrl('views/articulo.html', {
+                scope: vm
+            }).then(function (modal) {
+                vm.modal = modal;
+            });
 
-        $ionicModal.fromTemplateUrl('views/articulo.html', {
-            scope: vm
-        }).then(function (modal) {
-            vm.modal = modal;
+            ds.jsonAll(ds.Articulo).then(function (data) {
+                vm.items = data;
+            });
+
+            fb3.load().then(function () {
+                
+            });
         });
-
-        vm.items = DatabaseService.jsonAll(DatabaseService.Articulo);
-    }    
+    }
 
     function openModal() {
         vm.ImgSrc = "";
@@ -46,16 +54,21 @@ angular
     };
 
     function crearArticulo() {
-        var Articulo = new DatabaseService.Articulo(vm.Articulo);
+        var Articulo = new ds.Articulo(vm.Articulo);
 
-        DatabaseService.saveRow(Articulo, function () {
+        ds.saveRow(Articulo, function () {
             Msg.mostrarMensaje('Articulo agregado');
+
+            fb3.add("Articulo", vm.Articulo);
 
             vm.Articulo = {};
 
             vm.modal.hide();
 
-            vm.items = DatabaseService.jsonAll(DatabaseService.Articulo);
+            ds.jsonAll(ds.Articulo).then(function (data) {
+                vm.items = data;
+            });
+
         });
     }
 
@@ -67,16 +80,16 @@ angular
     }
 
     function eliminarArticulo(item) {
-        DatabaseService.getById(DatabaseService.Articulo, item.id, function (Articulo) {
-            DatabaseService.removeRow(Articulo, function () {
+        ds.getById(ds.Articulo, item.id, function (Articulo) {
+            ds.removeRow(Articulo, function () {
                 Msg.mostrarMensaje('Articulo eliminado');
-                vm.items = DatabaseService.jsonAll(DatabaseService.Articulo);
+                vm.items = ds.jsonAll(ds.Articulo);
             });
         });        
     }
 
     function editarModal(item) {
-        DatabaseService.getById(DatabaseService.Articulo, item.id, function (result) {
+        ds.getById(ds.Articulo, item.id, function (result) {
             vm.Articulo = result.toJSON();
             vm.ImgSrc = "data:image/jpeg;base64," + vm.Articulo.Img;
             vm.mostrarFoto = true;
@@ -87,7 +100,7 @@ angular
     }
 
     function editarArticulo() {
-        DatabaseService.getById(DatabaseService.Articulo, vm.Articulo.id, function (Articulo) {
+        ds.getById(ds.Articulo, vm.Articulo.id, function (Articulo) {
 
             var a = vm.Articulo;
 
@@ -102,14 +115,14 @@ angular
             Articulo.Img(a.Img);
             Articulo.Active(a.Active);
 
-            DatabaseService.saveRow(Articulo, function () {
+            ds.saveRow(Articulo, function () {
                 Msg.mostrarMensaje('Articulo editado');
 
                 vm.Articulo = {};
 
                 vm.modal.hide();
 
-                vm.items = DatabaseService.jsonAll(DatabaseService.Articulo);
+                vm.items = ds.jsonAll(ds.Articulo);
             });
         });
     }
@@ -170,17 +183,17 @@ angular
 
     function obtenerLista(control){
         if ($.trim(control.SearchText) != "") {
-            vm.items = DatabaseService.getList(DatabaseService.Articulo, "Articulo", $.trim(control.SearchText));
+            vm.items = ds.getList(ds.Articulo, "Articulo", $.trim(control.SearchText));
         }
         else {
-            vm.items = DatabaseService.jsonAll(DatabaseService.Articulo);
+            vm.items = ds.jsonAll(ds.Articulo);
         }
     }
 
     function clearSearch(){
         this.SearchText = "";
 
-        vm.items = DatabaseService.jsonAll(DatabaseService.Articulo);
+        vm.items = ds.jsonAll(ds.Articulo);
     }
 
     vm.init();

@@ -25,7 +25,7 @@
                   class="item item-thumbnail-left item-remove-animate"
                   ng-click="editarModal(item)"
                   href="#">
-            <img src="data:image/jpeg;base64,{{ item.Img}}" id="imgArticulo" style="width:70%; height:auto; " />
+            <img src="{{ item.Img}}" id="imgArticulo" style="width:70%; height:auto; " />
             <h2>{{ item.Articulo }}</h2>
             <p>Depto: {{ item.Departamento}}</p>
             <p>Categoria: {{ item.Categoria}}</p>

@@ -97,6 +97,7 @@ angular.module('MandaditoShop.Appliedsw.com', ['ionic', 'MandaditoShop.Appliedsw
             var dependencies = [
                 'scripts/service/Msg.js',
                 'scripts/service/DatabaseService.js',
+                'scripts/service/Firebase3Service.js',
                 'scripts/directive/uiCurrency.js',
                 'scripts/controller/articulosController.js'
             ];
