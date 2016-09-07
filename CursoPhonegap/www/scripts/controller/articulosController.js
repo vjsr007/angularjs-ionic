@@ -58,16 +58,16 @@ angular
 
         ds.saveRow(Articulo, function () {
             Msg.mostrarMensaje('Articulo agregado');
-
-            fb3.add("Articulo", vm.Articulo);
-
-            vm.Articulo = {};
-
+            
             vm.modal.hide();
 
             ds.jsonAll(ds.Articulo).then(function (data) {
                 vm.items = data;
             });
+
+            fb3.add("Articulo", vm.Articulo);
+
+            vm.Articulo = {};
 
         });
     }
@@ -104,16 +104,16 @@ angular
 
             var a = vm.Articulo;
 
-            Articulo.Codigo(a.Codigo);
-            Articulo.Articulo(a.Articulo);
-            Articulo.Departamento(a.Departamento);
+            Articulo.Codigo = a.Codigo;
+            Articulo.Articulo = a.Articulo;
+            Articulo.Departamento = a.Departamento;
 
-            Articulo.Categoria(a.Categoria);
-            Articulo.Marca(a.Marca);
-            Articulo.Precio(a.Precio);
+            Articulo.Categoria = a.Categoria;
+            Articulo.Marca = a.Marca;
+            Articulo.Precio = a.Precio;
 
-            Articulo.Img(a.Img);
-            Articulo.Active(a.Active);
+            Articulo.Img = a.Img;
+            Articulo.Active = a.Active;
 
             ds.saveRow(Articulo, function () {
                 Msg.mostrarMensaje('Articulo editado');
@@ -183,17 +183,23 @@ angular
 
     function obtenerLista(control){
         if ($.trim(control.SearchText) != "") {
-            vm.items = ds.getList(ds.Articulo, "Articulo", $.trim(control.SearchText));
+            ds.getList(ds.Articulo).then(function (data) {
+                vm.items = data;
+            });
         }
         else {
-            vm.items = ds.jsonAll(ds.Articulo);
+            ds.jsonAll(ds.Articulo).then(function (data) {
+                vm.items = data;
+            });
         }
     }
 
     function clearSearch(){
         this.SearchText = "";
 
-        vm.items = ds.jsonAll(ds.Articulo);
+        ds.jsonAll(ds.Articulo).then(function (data) {
+            vm.items = data;
+        });
     }
 
     vm.init();

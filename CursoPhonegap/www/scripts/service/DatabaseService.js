@@ -121,8 +121,11 @@ angular.registerService('DatabaseService', function ($q, Msg) {
     }
 
     this.getList = function (entity, property, value) {
-        var objects = new Array;
+        var defered = $q.defer();
+        var promise = defered.promise;
 
+
+        var objects = new Array;
         entity
             .all()
             .filter(property, 'like', '%' + value + '%')
@@ -132,15 +135,20 @@ angular.registerService('DatabaseService', function ($q, Msg) {
                     var getType = {};
                     for (var name in t) {
                         if (t.hasOwnProperty(name)) {
-                            object[name] = getType.toString.call(t[name]) == '[object Function]' ? (t[name])() : t[name]
+                            var tipo = getType.toString.call(t[name]);
+                            if (tipo != '[object Function]' && tipo != '[object Object]') {
+                                object[name] = t[name] == null ? "" : t[name].toString();
+                            }
                         }
                     }
 
                     objects.push(object);
                 })
+
+                defered.resolve(objects);
             });
 
-        return objects
+        return promise;
     }
 
     this.load = function () {

@@ -4,12 +4,11 @@
     var self = this;
 
     var config = {
-        apiKey: "222",
-        authDomain: "f.firebaseapp.com",
-        databaseURL: "https://f.firebaseio.com",
-        storageBucket: "f.appspot.com",
+        apiKey: "AIzaSyB6JJOocfwEkSE47u68AYcH2jXt_Bg4GAs",
+        authDomain: "mandaditoshop.firebaseapp.com",
+        databaseURL: "https://mandaditoshop.firebaseio.com",
+        storageBucket: "mandaditoshop.appspot.com",
     };
-
 
     this.load = function () {
         var defered = $q.defer();
@@ -37,7 +36,8 @@
             firebase.auth().signOut();
             // [END signout]
         } else {
-
+            var email = 'vjsanchezr@hotmail.com';
+            var password = 'vj007...';
             if (email.length < 4) {
                 Msg.mostrarMensaje('Please enter an email address.');
                 return;
