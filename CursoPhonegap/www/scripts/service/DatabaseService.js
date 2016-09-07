@@ -5,13 +5,6 @@ angular.registerService('DatabaseService', function ($q, Msg) {
 
     var n = 10;
 
-    var config = {
-        apiKey: "AIzaSyB6JJOocfwEkSE47u68AYcH2jXt_Bg4GAs",
-        authDomain: "mandaditoshop.firebaseapp.com",
-        databaseURL: "https://mandaditoshop.firebaseio.com",
-        storageBucket: "mandaditoshop.appspot.com",
-    };
-
     this.Entities = [
         {
             name: 'Articulo',
