@@ -3,10 +3,10 @@
 
     var self = this;
     var config = {
-        apiKey: "AIzaSyB6JJOocfwEkSE47u68AYcH2jXt_Bg4GAs",
-        authDomain: "mandaditoshop.firebaseapp.com",
-        databaseURL: "https://mandaditoshop.firebaseio.com",
-        storageBucket: "mandaditoshop.appspot.com",
+        apiKey: "1111",
+        authDomain: "1111.firebaseapp.com",
+        databaseURL: "https://1111.firebaseio.com",
+        storageBucket: "1111.appspot.com",
     };
 
     this.user = {};
@@ -36,7 +36,7 @@
 
     this.login = function() {
         var email = 'vjsanchezr@hotmail.com';
-        var password = 'vj007...';
+        var password = '....';
         if (email.length < 4) {
             Msg.mostrarMensaje('Please enter an email address.');
             return;
