@@ -1,3 +1,4 @@
+/// <reference path="directive/loadImage.js" />
 angular.module('MandaditoShop.Appliedsw.com', ['ionic', 'MandaditoShop.Appliedsw.com.controllers'])
 
 .run(function($ionicPlatform) {

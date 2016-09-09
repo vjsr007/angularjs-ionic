@@ -2,7 +2,6 @@
     "use strict";
 
     var self = this;
-
     var config = {
         apiKey: "AIzaSyB6JJOocfwEkSE47u68AYcH2jXt_Bg4GAs",
         authDomain: "mandaditoshop.firebaseapp.com",
@@ -10,12 +9,17 @@
         storageBucket: "mandaditoshop.appspot.com",
     };
 
+    this.user = {};
+
     this.load = function () {
         var defered = $q.defer();
         var promise = defered.promise;
 
         try {
-            firebase.initializeApp(config);
+            if (firebase.apps.length == 0)
+                firebase.initializeApp(config);
+
+            self.onAuthStateChanged();
 
             self.login();
 
@@ -31,44 +35,71 @@
     }
 
     this.login = function() {
-        if (firebase.auth().currentUser) {
-            // [START signout]
-            firebase.auth().signOut();
-            // [END signout]
-        } else {
-            var email = 'vjsanchezr@hotmail.com';
-            var password = 'vj007...';
-            if (email.length < 4) {
-                Msg.mostrarMensaje('Please enter an email address.');
-                return;
-            }
-            if (password.length < 4) {
-                Msg.mostrarMensaje('Please enter a password.');
-                return;
-            }
-            // Sign in with email and pass.
-            // [START authwithemail]
-            firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // [START_EXCLUDE]
-                if (errorCode === 'auth/wrong-password') {
-                    Msg.mostrarMensaje('Wrong password.');
-                } else {
-                    Msg.mostrarMensaje(errorMessage);
-                }
-                console.log(error);
-                // [END_EXCLUDE]
-            });
-            // [END authwithemail]
+        var email = 'vjsanchezr@hotmail.com';
+        var password = 'vj007...';
+        if (email.length < 4) {
+            Msg.mostrarMensaje('Please enter an email address.');
+            return;
         }
+        if (password.length < 4) {
+            Msg.mostrarMensaje('Please enter a password.');
+            return;
+        }
+        // Sign in with email and pass.
+        // [START authwithemail]
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // [START_EXCLUDE]
+            if (errorCode === 'auth/wrong-password') {
+                Msg.mostrarMensaje('Wrong password.');
+            } else {
+                Msg.mostrarMensaje(errorMessage);
+            }
+            console.log(error);
+            // [END_EXCLUDE]
+        });
+        // [END authwithemail]
+
     }
 
-    this.add= function(entidad, postData){
+    this.upload = function (entidad, postData, uid) {
         var database = firebase.database();
+        var userId = firebase.auth().currentUser.uid;
 
-        database.ref().child(entidad).set(postData)
+        var ref = (uid != null ? database.ref().child(userId + '/' + entidad + '/' + uid) : database.ref().child(userId + '/' + entidad));
+
+        ref.set(postData);
+    }
+
+    this.download = function (entidad) {
+        var database = firebase.database();
+        var userId = firebase.auth().currentUser.uid;
+        var ref = database.ref().child(userId + '/' + entidad)
+
+        ref.on('value', function (snapshot) {
+            console.log(snapshot.val());
+        });
+    }
+
+    this.onAuthStateChanged = function () { 
+        firebase.auth().onAuthStateChanged(function (user) {
+            // [START_EXCLUDE silent]
+            // [END_EXCLUDE]
+            if (user) {
+
+                self.user = user;
+                // User is signed in.
+                //var displayName = user.displayName;
+                //var email = user.email;
+                //var emailVerified = user.emailVerified;
+                //var photoURL = user.photoURL;
+                //var isAnonymous = user.isAnonymous;
+                //var uid = user.uid;
+                //var providerData = user.providerData;
+            }
+        });
     }
 
 });

@@ -2,7 +2,6 @@ angular.registerService('DatabaseService', function ($q, Msg) {
     "use strict";
 
     var self = this;
-
     var n = 10;
 
     this.Entities = [

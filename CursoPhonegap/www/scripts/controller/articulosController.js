@@ -41,15 +41,15 @@ angular
                 vm.items = data;
             });
 
-            fb3.load().then(function () {
-                
-            });
+            fb3.load();
         });
     }
 
     function openModal() {
+        vm.Articulo = {};
         vm.ImgSrc = "";
         vm.mostrarFoto = false;
+        vm.editando = false;
         vm.modal.show();
     };
 
@@ -65,9 +65,7 @@ angular
                 vm.items = data;
             });
 
-            fb3.add("Articulo", vm.Articulo);
-
-            vm.Articulo = {};
+            fb3.upload("Articulo", vm.Articulo, Articulo.id);
 
         });
     }
@@ -83,7 +81,10 @@ angular
         ds.getById(ds.Articulo, item.id, function (Articulo) {
             ds.removeRow(Articulo, function () {
                 Msg.mostrarMensaje('Articulo eliminado');
-                vm.items = ds.jsonAll(ds.Articulo);
+
+                ds.jsonAll(ds.Articulo).then(function (data) {
+                    vm.items = data;
+                });
             });
         });        
     }
@@ -118,11 +119,15 @@ angular
             ds.saveRow(Articulo, function () {
                 Msg.mostrarMensaje('Articulo editado');
 
-                vm.Articulo = {};
-
                 vm.modal.hide();
 
-                vm.items = ds.jsonAll(ds.Articulo);
+                ds.jsonAll(ds.Articulo).then(function (data) {
+                    vm.items = data;
+                });
+
+                fb3.upload("Articulo", vm.Articulo, vm.Articulo.id);
+
+                fb3.download("Articulo");
             });
         });
     }
@@ -183,7 +188,7 @@ angular
 
     function obtenerLista(control){
         if ($.trim(control.SearchText) != "") {
-            ds.getList(ds.Articulo).then(function (data) {
+            ds.getList(ds.Articulo, "Articulo", control.SearchText).then(function (data) {
                 vm.items = data;
             });
         }
